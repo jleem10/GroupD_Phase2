@@ -1,0 +1,84 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage[top = 2.54cm, bottom = 2.54cm, left = 2.54cm, right = 2.54cm]{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\parindent}{0pt}
+\lhead{}
+\rhead{Group D - Phase 2 Report}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\title{Influenza Virus Infection Modeling}
+\author{A.~Ambuehl -- \texttt{antonietta.ambuehl@dtc.ox.ac.uk} \and J.~Leem -- \texttt{jinwoo.leem@dtc.ox.ac.uk} \and M.~Lucken -- \texttt{malte.lucken@dtc.ox.ac.uk} \and W.~Smith -- \texttt{william.smith@dtc.ox.ac.uk} \and O.~Thomas -- \texttt{owen.thomas@dtc.ox.ac.uk} \\\\
+University of Oxford DTC \\
+Rex Richards Building \\
+South Parks Road\\
+\underline{Oxford, OX1 3QZ, United Kingdom}\\
+}
+
+\begin{document}
+\maketitle
+
+%% STYLISTIC COMMENTS %%
+%
+% Please format function names in computer modern (>> "\textt{}") and latin (i.e., etc., via, e.g.) in italic (>> "\textit{}")
+% Citations take >> "glim~\cite{paper}" to give proper spacing.
+% Acronymns (as with any other object) should not be pluralised using an apostrophe. (so ODEs not OED's)
+% Don't use the regular speechmarks, they are not formatted correctly (so ``speech'  not "speech"')
+
+\chapter{Background and Aims} %Done by Jin
+
+The influenza virus is responsible for a variety of diseases, ranging from the common cold to worldwide pandemics like the Bird flu. For the purpose of treating, and ultimately preventing, infections from the virus, it would be desirable to generate a simulation model which encompasses the course of viral infection in the human epithelium. Moreover, it would be most ideal if all aspects of human epithelial immunology (\emph{e.g.} interaction of cytokines, effector cells, antibodies, virions, \emph{etc.}) are incorporated into the prospective model. Initially, a model was devised in 2007 which encompasses many of the factors involved in the immune response ~\cite{Hancioglu}, such as:
+\begin{enumerate}[a.]
+\item Antibodies and their affinity toward the circulating virus,
+\item Antigen presentation,
+\item Production and clearance of the virus, \emph{etc.}
+\end{enumerate}
+
+%\begin{figure}[htb]
+%\label{fig:model}
+%\includegraphics[]{}				(include the model diagram with ODE written on top (e.g. dS/dt, etc)
+%\end{figure}
+
+This original model, as shown in %~\ref{fig:model}
+is a continuum model based on a series of ordinary differential equations (ODE's); it ultimately simulates the population of healthy and infected cells, and the levels of the free virus over the course of infection. 
+In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model has soundly demonstrated the cellular and viral dynamics in a hypothetical infection scenario with considerable accuracy to the data from the original work. This computational model was superb in that, the user has the freedom to customise the duration of simulations and also set the values for a wide range of parameters, such as viral release rates, antibody maturation and cellular turnover. \\
+
+%\begin{figure}[htb]
+%\includegraphics[]{}                       Include a figure from the original model and the new computational model
+%\end{figure}
+
+However, having said this, we felt that the computational model showed modest clinical relevance. The model is designed so that the parameters can be tailored to each patient's immune capacity, but the model only reflects the natural biological response (\emph{i.e.} the adaptive and innate immune responses) to the virus. In fact, our group felt that incorporating the effects of anti-influenza drugs on the cellular and viral dynamics was a more pragmatic interpretation of the problem. \\
+
+Moreover, the high degree of customisation in the model has led to a few drawbacks on the veracity of the model. Despite the fact that having more user-dependent parameters may better represent individual biological scenarios, we felt that some parameter values can be randomised by a random number generator. Effectively, this introduces a level of stochasticity in the model, and is arguably a more accurate reflection of the inherent randomness in the system. \\
+
+For example, one of the parameters, S (antigenic compatibility of antibodies) is initialised by the user. By using a fixed initial value of antigenic compatibility, \emph{e.g.} $S(0) = x$, we ignore the process of naive B-cell selection (and the possible delay in the immune response due to selection), we also assume that all serum antibodies have affinity $x$ for the virus. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres %(provide reference).
+
+We therefore suggest a list of changes to the program to introduce a range of pragmatic and stochastic concepts and improve the general biomedical relevance of the model:
+\begin{enumerate}
+\item Considering the effects of anti-influenza drugs such as Tamiflu and Relenza (neuraminidase inhibitors) on the release capacity of the virus
+\item Removing the need for submitting an initial value for antigenic compatibility and viral release rates - both parameters will be randomised and solved by stochastic differential equation solvers which accounts for noise in the system
+\item Effector cells are said to be removed by ''natural death''; considering that healthy cells can inactivate effector cells like natural killer (NK) cells (provide ref), we also propose a healthy cell-dependence on the levels of effector cells
+\item Addition of helper T-cell dynamics as they help to form plasma cells and effector cells, but their role has been omitted in the original and computational models.
+\end{enumerate}
+
+\section{Extension of the Model, Theoretical Framework}
+
+In order to achieve our aims listed in the previous section, we:
+% talk about all the changes to the ODEs and why this is mathematically plausible blah blah
+
+% talk about SDE solver and how introducing stochasticity is mathematically plausible blah blah blah
+
+% -Relevance of Stochastic Modeling of the System
+% -Explain the use of SDE's
+% -Refinement of Code architecture
+
+\chapter{Our code in comparison to Group G}
+
+\bibliography{Bib}
+\bibliographystyle{plain}
+
+\end{document}
