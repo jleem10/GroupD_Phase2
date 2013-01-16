@@ -147,9 +147,52 @@ In summary, to account for the role of helper T cells in plasma cell synthesis w
 \frac{dP}{dt} &=& b_{PB}B_{i}P + \alpha_{P}(1 - P)
 \end{eqnarray*}
 
-\section{Introduction of Stochasticity} %Done by Jin
-To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code \emph{per se}, but instead give the user a more realistic account of how cell populations and viral titre can vary over time.\\
+\section{Introduction of Stochasticity} %Done by Jin and Owen
+To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code \emph{per se}, but instead give the user a more realistic account of how cell populations and viral titre can vary over time. There were two possible ways of approaching this problem; it is possible to introduce stochastic noise into either the cell populations or the dynamical rate paramters. Both were explored, and are discussed below.
 
+\subsection{Stochastic Populations}
+
+The study of stochastic differential equations (SDEs) is a widely studied topics in mathematics, with many resources for different algorithms and implementations. The ideal is to solve a differential equation with a well-defined noise function adding a stochastic element over time:
+
+\begin{align}
+\frac{\mathrm d X}{\mathrm d t}(t) = \mathrm f (X) + \mathrm g(t)
+\end{align}
+
+In the above, $f(X,t)$ is the ``drift function" of the system that would comprise a traditional ODE and $g(t)$ is the component that contributes the stochastic noise with time. It is possible to introduce a traditional finite-difference forward-regression approach, by implementing the Euler-Maruyama method for an SDE, such that:
+
+\begin{align}
+X(t+\delta t) = X(t) + (\delta t)\, \mathrm f (X(t)) + \sqrt{ \delta t}\, \mathrm G (X(t))\, \eta \quad \text{such that} \quad \eta \in N(0,1)
+\end{align}
+
+Here, $N(0,1)$ is a normal distribution, with a mean of zero and standard deviation of one and $G(X(t))$ is the ``diffusion coefficient'' for our system. Given access to the functions $f(x)$ and $G(X)$ and a normally distributed random number generator, it is possible to solve this iteratively, with each new timestep explicitly using the previous one. This is a simple but reliable implementation, which represents a good method for introducing background noise into the concentrations of various variables in our system.
+
+\subsection{Stochastic Rates}
+
+The next approach, which is possibly more theoretically justifiable, is to allow the parameters of the ODE system to vary stochastically with each call of the function $f(X(T))$. This allows the code to isolate the mechanisms are contributing noise, rather than simply adding some arbitrary amount of stochasticity to the variable each timestep. This method allows for the standard library of ODE solving regression algorithms, since it is the drift function that contributes noise rather than the finite different method itself. It is consequently slightly easier to implement in various languages.
+
+\subsection{Implementation in Matlab}
+
+These two approaches were implemented in two different solver functions: \texttt{sdesolver()} and \texttt{sderatesolver()}, respectively. These resembled the native Matlab solvers, but with an extra input, describing the nature of the diffusion coefficient $G(X(t))$. \texttt{sdesolver()} is handed a two by ten dimensoinal matrix containing the vectors $a$ and $b$, used such that $G(X)=a.$*$X.^b$, elementwise. This gives a wide sampling of potential diffusion functions, allowing for easy sampling of interesting parameter spaces. The second function, \texttt{sderatesolver()}, demands two inputs, which specify the strength of the noise added to the creation of V and S, these being judged to be the processes most likely to realistically exhibit highly stochastic behaviour. A difficulty of implementation involved forcing all variables to remain non--negative: if either the numerical methods or stochastic noise push any variables below zero into an unphysical region of phase space, the variables would quickly and collectively diverge into positives or negative infinities. This was avoided with a simple check and modification.
+
+\section{Results}
+
+We observed several interesting phenomena over the course of exploring parameter and solver configurations for the SDEs. These can be loosely grouped into two classes, thodse of noise propagation and virus resurgence.
+
+\subsection{Noise transferrance}
+
+An interesting question which we addressed is the extent to which noise introduced to one parameter will effect the output of another parameter. Choosing S and V as being test cases, we added noise to each independantly and both together, observing the extent to which this effect the behaviour of other variables. We found that noise added to V became manifest in slight perturbations to the response curves of H, I and M., although the curves were still qualitatively the same objects. Noise added to the variable S had no obvious effect: desite being relatively well--connected in the system of ODEs, the other variables were less effected by perturbations in S. This may be owing to the role of S as a logical variable, ranging from its steady states at zero and one; stochastic variation these may be insignificant compared to the overall logical state of the efficacy.
+
+\subsection{Virus Resurgence}
+
+One dynamically significant effect of adding noise to either the virus population V or the rate of creation of V by infected cells is the occurance of virus resurgence and infection. If the noise introduced is significanly large then the virus population plotted against time will feature more than one spike, representing a reappearance of the virus population in the cell population. I speculate that this is the stochasticity pushing the depleted virus count above a threshold, sparking another wave of infection when the antibody count has fallen sufficiently. This new wave is accompanied by a corresponding rise in antibodies in response, hoping to combat the infection. It is interesting that the subsequent virus and antibody peaks are significantly lower than the first wave's: this can be explained by reference to the antibody efficacy S. This grows every time a new infection appears, describing the cell population's capacity to ``remember'' how to combat the virus, making the virus less successful and demanding less antibody concetration for each wave. These effects can be observed in Figure \ref{resurgance}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=120mm]{Resurgance_scissored.pdf}
+\label{resurgance}
+\caption{Outputs for V, A and S against time, using the default parameter set and noise on V scaling linearly with V (NoiseParameters(1,1)=NoiseParameters(1,2))}
+\end{center}
+\end{figure}
 %%%% Ignore from here for now
 For example, one of the parameters, S (antigenic compatibility of antibodies) is initialised by the user. By using a fixed initial value of antigenic compatibility, \emph{e.g.} $S(0) = x$, we ignore the process of naive B-cell selection (and the possible delay in the immune response due to selection), we also assume that all serum antibodies have affinity $x$ for the virus. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres %(provide reference).
 

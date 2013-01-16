@@ -6,16 +6,38 @@ David~Swigon Baris~Hancioglu and Gilles Clermont.
   infection.
 \newblock {\em Journal of Theoretical Biology}, 246:70--86, 2007.
 
+\bibitem{Crotty}
+Shane Crotty.
+\newblock Follicular helper cd4 t cells (tfh).
+\newblock {\em Annual Reviews of Immunology}, 29:621--663, 2011.
+
 \bibitem{GroupG}
 N.~Pearce L. Bowler F. Wolfreys M. Aldeghi~I. Frost and P.~Taylor.
 \newblock A dynamical model of human immune response to influenza a virus
   infection.
 \newblock 2013.
 
+\bibitem{Carneiro1}
+Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
+\newblock A model of the immune network with b-t cell co-operation i --
+  prototypical structures and dynamics.
+\newblock {\em Journal of Theoretical Biology}, 182:513--529, 1996.
+
+\bibitem{Carneiro2}
+Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
+\newblock A model of the immune network with b-t cell co-operation ii -- the
+  simulation of ontogenesis.
+\newblock {\em Journal of Theoretical Biology}, 182:531--547, 1996.
+
 \bibitem{Smith}
 Amber~M. Smith and Alan~S. Perelson.
 \newblock Influenza a virus infection kinetics: quantitative data and models.
 \newblock {\em Wiley Interdisciplinary Reviews: Systems Biology and Medicine},
   3(4):429--445, 2011.
+
+\bibitem{Swain}
+K.~Kai~McKinstry Susan L.~Swain and Tara~M. Strutt.
+\newblock Expanding roles for cd4+ t cells in immunity to viruses.
+\newblock {\em Nature Reviews Immunology}, 12:136--148, 2012.
 
 \end{thebibliography}
