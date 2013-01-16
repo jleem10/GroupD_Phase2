@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{verbatim}
 \usepackage{fancyhdr}
+\usepackage{fixltx2e} % Package for subscripting and superscripting... %
 \pagestyle{fancy}
 \setlength{\parindent}{0pt}
 \lhead{}
@@ -40,13 +41,7 @@ Moreover, it would be most ideal if all aspects of human epithelial immunology (
 \item Production and clearance of the virus, \emph{etc.}
 \end{enumerate}
 
-%\begin{figure}[htb]
-%\label{fig:model}
-%\includegraphics[]{}				(include the model diagram with ODE written on top (e.g. dS/dt, etc)
-%\end{figure}
-
-This original model, as shown in %~\ref{fig:model}
-is a continuum model based on a series of ordinary differential equations (ODEs); it ultimately predicts changes in the population of healthy and infected cells, and levels of the free virus over the course of infection. \\
+This original model is a continuum model based on a series of ordinary differential equations (ODEs); it ultimately predicts changes in the population of healthy and infected cells, and levels of the free virus over the course of infection. \\
 
 In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model has soundly demonstrated the cellular and viral dynamics in a hypothetical infection scenario with considerable accuracy to the data from the original work. This computational model was superb in that, the user has the freedom to customise the duration of simulations and also set the values for 27 parameters, such as viral release rates, antibody maturation and cellular turnover. \\
 
@@ -61,20 +56,27 @@ Furthermore, though our group realised that incorporating more user-dependent pa
 Effectively, we propose the following list of changes to the computational model to improve its general biomedical relevance:
 \begin{enumerate}
 \item Considering the effects of anti-influenza drugs such as Tamiflu and Relenza (neuraminidase inhibitors) on the release capacity of the virus
-\item Removing the need for submitting an initial value for antigenic compatibility and viral release rates - both parameters will be randomised and solved by stochastic differential equation solvers which accounts for noise in the system
-\item Effector cells are said to be removed by ''natural death''; considering that healthy cells can inactivate effector cells like natural killer (NK) cells (provide ref), we also propose a healthy cell-dependence on the levels of effector cells
-\item Addition of helper T-cell dynamics as they help to form plasma cells and effector cells, but their role has been omitted in the original and computational models.
+\item Addition of helper T-cell (T\textsubscript{H} cell) dynamics as they help to form plasma cells, but their role has been omitted in the original and computational models.
+\item Pseudorandomisation of select parameters: a select number of parameters can have their initial values defined by the user, but these input values will be used as a seed for a pseudorandom number generator, thus introducing stochasticity. This will be solved by a stochastic differential equation solver.\\
 \end{enumerate}
 
-\section{Extension of the Model I -- Modelling Antiviral therapy}
+Ultimately, these extensions culminated to a new model as shown in Figure ~\ref{newmodel}:
 
+\begin{figure}[htb]
+\label{newmodel}
+\includegraphics[width = 150mm]{Diagram.png}
+\caption{Each of the relevant compartments, as per the original model, are labelled in their respective abbreviations (\emph{e.g.} Infected cells are represented by $I$ and antigen presenting cells (APCs) are represented by $M$, \emph{etc.}). Our additions to the model are labelled as orange compartments with dotted lines for their relevant processes. These new additions include: drugs (neuraminidase inhibitors, $D_1$, and amantadine $D_2$), helper T cell:B cell dynamics (T\textsubscript{FH} and B) and introduction of stochasticity (labelled with yellow stars).}
+\end{figure}
+
+\chapter{Extension of the Model}
+\section{Modelling Antiviral therapy}
 To extend the model, we decided to investigate the effects of adding an antiviral agent to the system.
 Antivirals are drugs used to control viral infections both theraputically and prophylactically. They operate by interfering with the virus copying sequence at one or more points in its replication cycle. For example, two common antiviral targets are:
 \begin{enumerate}
 \item \textbf{Viral M2 proton channels:} Disruption of viral unpackaging in host cytosol \textit{via} the competetive inhibition of the viral M2 proton channel;~\cite{}
 \item \textbf{Viral Neuraminidase:} Prevention of viral budding \textit{via} competetive inhibition of the neuraminidases responsible for severing newly-created virus particles from their host cells.\cite{}  
 \end{enumerate}
-Instances of antivirals exploiting the above mechanisms include  Amantadine (trade name ``Symmetrel') and Oseltamivir phosphate (Tamiflu).\\
+Instances of antivirals exploiting the above mechanisms include Amantadine (trade name ``Symmetrel') and Oseltamivir phosphate (Tamiflu).\\
 %Tamifilu works by inhibiting the action of the enzyme viral neuraminidase, whose action is necessary to allow newly-created viral particles to detach from their infected hosts.S
 %Symmetrel, an older drug, operates by interfering with the action of viral M2 proton channels, preventing virus particles from becoming decoated once they are absorbed into cells by endocytosis.
 
@@ -99,14 +101,58 @@ Indeed, innate viral resistance to Symmetrel is now so widespread that it has be
 We sought to model the onset of viral drug resistance by splitting the viral populaton $V$ into subpopulations of different mutants, displaying increasing levels of drug resistance\footnote{The drug resistance was modelled as having an associated fitness cost, making mutation favourable in the presence of antivirals but marginally unfavourable in their absence.}. Initially, all viruses were of an unmutated type, but subsequent mutations (modelled by stochastic population transfers) allow occasional transfer to progressively more resistant types which then proliferate faster owing to the selective pressure imposed by the drug.
 %% Are we even including this?
 
+\section{Consideration of T\textsubscript{H} cells in Plasma Cell Dynamics} %By Jin
+In the original model, the interaction of T\textsubscript{H}1 and T\textsubscript{H}2 cells were ommitted with almost no justification - this seems unusual, especially considering how critical T\textsubscript{H} cells are fundamental to the clonal expansion of B-cells and their transition into plasma cells. Interestingly, new research suggests that it's neither T\textsubscript{H}1 or T\textsubscript{H}2 cells; instead, another cell type, the follicular helper T-cell, T\textsubscript{FH}, facilitates the switch ~\cite{Swain}. Though it would be ideal to integrate T\textsubscript{FH}:B-cell interaction into the model to enhance its biological relevance, their interaction has not yet been substantially modelled and our group felt it was precocious to propose an entirely new equation to model this interaction. On the other hand, the interaction of T-cells and B-cells has been modelled elsewhere ~\cite{Carneiro1}~\cite{Carneiro2}.\\ 
+
+The change in T-cell population to antigen $k$ (\emph{i.e.} $\frac{dT_k}{dt}$) is dependent on the T-cell death rate ($k_{DT}$), proliferation rate ($k_{PT}$), thymic output rate ($k_{ST}$) and the function $\alpha{T}$ which depends on $\pi_{k}$ (stimulatory signal for T-cell activation), $n_{k}$ (inhibitory signal for T-cell activation), $T_{k}$, and two constants $a_{T1}$ and $a_{T2}$, hence leading to the equation:
+
+\begin{eqnarray}
+\frac{dT_k}{dt} &=& -k_{DT} \cdot T_k + k_{PT} \cdot \alpha_{T}(\pi_{k}, n_{k}, T_{k}) + k_{ST}; \label{dTK} \\
+\alpha_{T}(\pi_{k}, n_{k}, T_{k}) &=& exp\left[-\left(\frac{log(n_{k}) - a_{T1}}{a_{T2}}\right)^{2}\right]
+\end{eqnarray}
+
+The population of active B cells, $B_{i}$, is dependent on the T-cell population; like equation ~\ref{dTK}, $B_{i}$ depends on B-cell death rate ($k_{DB}$), proliferation rate ($k_{PB}$), and the function $\alpha{B}$ (which depends on $\sigma_{i}$ [B cell induction signal], $\tau_{i}$ [number of active T cells], $\beta_{i}$ [the number of induced B cells] and $B_{i}$), thus leading to:
+\begin{eqnarray}
+\frac{dB_i}{dt} &=& -k_{DB} \cdot B_i + k_{PB} \cdot \alpha_{B}(\sigma_{i}, \tau_{i}, B_{i}); ~\label{dBI} \\
+\alpha_{B}(\sigma_{i}, \tau_{i}, B_{i}) &=& \frac{\tau_{i}\cdot{\beta_{i}}}{\tau_{i} + \beta_{i}}, \\
+\beta_{i} &=&  exp\left[-\left(\frac{log(\sigma_{i}) - b_{1}}{b_{2}}\right)^{2}\right] \cdot B_{i}
+\end{eqnarray}
+
+Surprisingly, for the purposes of analysis, the authors simplify both ~\ref{dTK} and ~\ref{dBI} assuming that there is at least one activated T-cell, thus reducing this system to:
+\begin{eqnarray}
+\frac{dT_k}{dt} &=& (k_{PT}-k_{DT}) \cdot T_k \\ ~\label{dTKSimple}
+\frac{dB_i}{dt} &=& -k_{DB} \cdot B_i + k_{PB} \cdot \frac{T_{k} \cdot B_{i}}{T_{k}+B_{i}}; ~\label{dBISimple}
+\end{eqnarray}
+
+Given this new simplified formula, we decided to assimilate these two equations into the existing computational model. Unfortunately, one of the biggest challenges was actually fitting the newly-defined T\textsubscript{FH} cells into the overall scheme in Figure ~\ref{newmodel}. Considering that the mechanism of T\textsubscript{FH} cell differentiation remains undefined and the possibility that T\textsubscript{FH} cells are activated by B cells ~\cite{Crotty}, the equations that we are using may be inaccurate. On the other hand, there is sufficient evidence to suggest that T\textsubscript{FH} cells are activated by signals derived from APCs - thus, continuing with this notion, we suggest that equation ~\ref{dTKSimple} is scaled by the population of APCs, $M$.
+
+\begin{equation}
+\frac{dT_k}{dt} = (k_{PT}-k_{DT}) \cdot T_k \cdot M \\
+\end{equation}
+
+Under the new scheme, na\"\i ve B-cell activation by T\textsubscript{FH} cells can be represented by equation ~\ref{dBISimple}. As for the subsequent formation of plasma cells from B cells, we can see the original ODE for the formation of plasma cells (where $b_{PM}$ and $\alpha{P}$ are constants representing plasma cell synthesis and death, respectively):
+\begin{equation}
+\frac{dP}{dt} = b_{PM}MP + \alpha_{P}(1 - P)
+\end{equation}
+
+We decided to modify this equation slightly; we retained the constants as they represent properties intrinsic to the \emph{plasma cell}. However, we changed the dependence of plasma cell synthesis to the population of active B cells, $B_{i}$, rather than M (\emph{N.B. }To avoid confusion in nomenclature, $b_{PM}$ was renamed to $b_{PB}$). Therefore, we would attain:
+\begin{equation}
+\frac{dP}{dt} = b_{PB}B_{i}P + \alpha_{P}(1 - P)
+\end{equation}
+
+In summary, to account for the role of helper T cells in plasma cell synthesis with the influenza virus (V) as the antigen, we propose the following system of ODEs:
+\begin{eqnarray*}
+\frac{dT_V}{dt} &=& (k_{PT}-k_{DT}) \cdot T_V \cdot M \\
+\frac{dB_i}{dt} &=& -k_{DB} \cdot B_i + k_{PB} \cdot \frac{T_{V} \cdot B_{i}}{T_{V}+B_{i}} \\
+\frac{dP}{dt} &=& b_{PB}B_{i}P + \alpha_{P}(1 - P)
+\end{eqnarray*}
+
 \section{Introduction of Stochasticity} %Done by Jin
-To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code \emph{per se}, but instead give the user a more realistic account of how cell populations and viral titre can vary over time.
+To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code \emph{per se}, but instead give the user a more realistic account of how cell populations and viral titre can vary over time.\\
 
 %%%% Ignore from here for now
 For example, one of the parameters, S (antigenic compatibility of antibodies) is initialised by the user. By using a fixed initial value of antigenic compatibility, \emph{e.g.} $S(0) = x$, we ignore the process of naive B-cell selection (and the possible delay in the immune response due to selection), we also assume that all serum antibodies have affinity $x$ for the virus. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres %(provide reference).
 
-
-In order to achieve our aims listed in the previous section, we:
 % talk about all the changes to the ODEs and why this is mathematically plausible blah blah
 
 % talk about SDE solver and how introducing stochasticity is mathematically plausible blah blah blah
