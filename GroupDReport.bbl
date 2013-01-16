@@ -1,3 +1,21 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{Hancioglu}
+David~Swigon Baris~Hancioglu and Gilles Clermont.
+\newblock A dynamical model of human immune response to influenza a virus
+  infection.
+\newblock {\em Journal of Theoretical Biology}, 246:70--86, 2007.
+
+\bibitem{GroupG}
+N.~Pearce L. Bowler F. Wolfreys M. Aldeghi~I. Frost and P.~Taylor.
+\newblock A dynamical model of human immune response to influenza a virus
+  infection.
+\newblock 2013.
+
+\bibitem{Smith}
+Amber~M. Smith and Alan~S. Perelson.
+\newblock Influenza a virus infection kinetics: quantitative data and models.
+\newblock {\em Wiley Interdisciplinary Reviews: Systems Biology and Medicine},
+  3(4):429--445, 2011.
 
 \end{thebibliography}

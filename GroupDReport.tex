@@ -26,12 +26,14 @@ South Parks Road\\
 %
 % Please format function names in computer modern (>> "\textt{}") and latin (i.e., etc., via, e.g.) in italic (>> "\textit{}")
 % Citations take >> "glim~\cite{paper}" to give proper spacing.
-% Accronymns/Initialisations (as with any other object) should not be pluralised using an apostrophe. (so ODEs not OED's)
+% Acronymns (as with any other object) should not be pluralised using an apostrophe. (so ODEs not ODE's)
 % Don't use the regular speechmarks, they are not formatted correctly (so ``speech'  not "speech"')
 
 \chapter{Background and Aims} %Done by Jin
+\section{Biological Problem and Previous Work}
+The influenza virus is responsible for a variety of diseases, ranging from the common cold to worldwide pandemics like the Bird flu. For the purpose of treating, and ultimately preventing infections from the virus, it would be desirable to generate a model which simulates the course of viral infection in the human respiratory epithelium. By investigating how viruses interfere with the integrity of the epithelium and the amount of time that is required for the immune response to clear the virus, 
 
-The influenza virus is responsible for a variety of diseases, ranging from the common cold to worldwide pandemics like the Bird flu. For the purpose of treating, and ultimately preventing, infections from the virus, it would be desirable to generate a simulation model which encompasses the course of viral infection in the human epithelium. Moreover, it would be most ideal if all aspects of human epithelial immunology (\emph{e.g.} interaction of cytokines, effector cells, antibodies, virions, \emph{etc.}) are incorporated into the prospective model. Initially, a model was devised in 2007 which encompasses many of the factors involved in the immune response ~\cite{Hancioglu}, such as:
+Moreover, it would be most ideal if all aspects of human epithelial immunology (\emph{e.g.} interaction of cytokines, effector cells, antibodies, virions, \emph{etc.}) are incorporated into the prospective model. Initially, a model was devised in 2007 which encompasses many of the factors involved in the immune response ~\cite{Hancioglu}, such as:
 \begin{enumerate}[a.]
 \item Antibodies and their affinity toward the circulating virus,
 \item Antigen presentation,
@@ -44,20 +46,19 @@ The influenza virus is responsible for a variety of diseases, ranging from the c
 %\end{figure}
 
 This original model, as shown in %~\ref{fig:model}
-is a continuum model based on a series of ordinary differential equations (ODEs); it ultimately simulates the population of healthy and infected cells, and the levels of the free virus over the course of infection. 
-In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model has soundly demonstrated the cellular and viral dynamics in a hypothetical infection scenario with considerable accuracy to the data from the original work. This computational model was superb in that, the user has the freedom to customise the duration of simulations and also set the values for a wide range of parameters, such as viral release rates, antibody maturation and cellular turnover. \\
+is a continuum model based on a series of ordinary differential equations (ODEs); it ultimately predicts changes in the population of healthy and infected cells, and levels of the free virus over the course of infection. \\
+
+In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model has soundly demonstrated the cellular and viral dynamics in a hypothetical infection scenario with considerable accuracy to the data from the original work. This computational model was superb in that, the user has the freedom to customise the duration of simulations and also set the values for 27 parameters, such as viral release rates, antibody maturation and cellular turnover. \\
 
 %\begin{figure}[htb]
 %\includegraphics[]{}                       Include a figure from the original model and the new computational model
 %\end{figure}
 
-However, having said this, we felt that the computational model showed modest clinical relevance. The model is designed so that the parameters can be tailored to each patient's immune capacity, but the model only reflects the natural biological response (\textit{i.e.} the adaptive and innate immune responses) to the virus. In fact, our group felt that incorporating the effects of anti-influenza drugs on the cellular and viral dynamics was a more pragmatic interpretation of the problem. \\
+However, having said this, we felt that the computational model showed modest clinical relevance. The model is designed so that the parameters can be tailored to each patient's immune capacity and each virus strain's virulence, but the model only reflects the natural biological response (\emph{i.e.} the adaptive and innate immune responses) to the virus. In contrast, our group felt that incorporating the effects of anti-influenza drugs on the cellular and viral dynamics was a more pragmatic interpretation of the problem. Consequently, this would allow users to see if treatment is a viable option at specific time points, and raise the need for potential changes in treatment regimes (\emph{e.g.} combinatorial therapy of neuraminidase inhibitors). \\
 
-Moreover, the high degree of customisation in the model has led to a few drawbacks on the veracity of the model. Despite the fact that having more user-dependent parameters may better represent individual biological scenarios, we felt that some parameter values can be randomised by a random number generator. Effectively, this introduces a level of stochasticity in the model, and is arguably a more accurate reflection of the inherent randomness in the system. \\
+Furthermore, though our group realised that incorporating more user-dependent parameters could generate outputs for a wide variety of biological scenarios, we equally felt that having absolute control over all 27 parameters may yield biologically-irrelevant results. This would especially be the case if users inadvertently use unreasonable parameter values. For instance, the user may decide to use extremely high rate constants for viral infection ($\gamma_{HV}$) which could lead to false negatives of survival against a viral infection. We also felt that the model assumes some level of staticity; for instance, it assumes that the rate constant of virus formation from the infected cell, $\gamma_{HV}$, is the same in every infected cell. In theory, this value is likely to vary on a cell-to-cell basis (provide reference). Hence, in order to introduce a component to reflect the inherent randomness of the system, we have decided to randomise the input parameters with a pseudorandom number generator. Effectively, we wanted to introduce a level of stochasticity which is controllable to some extent, yet random enough to reflect the randomness of the process. \\
 
-For example, one of the parameters, S (antigenic compatibility of antibodies) is initialised by the user. By using a fixed initial value of antigenic compatibility, \textit{e.g.} $S(0) = x$, we ignore the process of naive B-cell selection (and the possible delay in the immune response due to selection), we also assume that all serum antibodies have affinity $x$ for the virus. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres %(provide reference).
-
-We therefore suggest a list of changes to the program to introduce a range of pragmatic and stochastic concepts and improve the general biomedical relevance of the model:
+Effectively, we propose the following list of changes to the computational model to improve its general biomedical relevance:
 \begin{enumerate}
 \item Considering the effects of anti-influenza drugs such as Tamiflu and Relenza (neuraminidase inhibitors) on the release capacity of the virus
 \item Removing the need for submitting an initial value for antigenic compatibility and viral release rates - both parameters will be randomised and solved by stochastic differential equation solvers which accounts for noise in the system
@@ -98,11 +99,12 @@ Indeed, innate viral resistance to Symmetrel is now so widespread that it has be
 We sought to model the onset of viral drug resistance by splitting the viral populaton $V$ into subpopulations of different mutants, displaying increasing levels of drug resistance\footnote{The drug resistance was modelled as having an associated fitness cost, making mutation favourable in the presence of antivirals but marginally unfavourable in their absence.}. Initially, all viruses were of an unmutated type, but subsequent mutations (modelled by stochastic population transfers) allow occasional transfer to progressively more resistant types which then proliferate faster owing to the selective pressure imposed by the drug.
 %% Are we even including this?
 
+\section{Introduction of Stochasticity} %Done by Jin
+To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code \emph{per se}, but instead give the user a more realistic account of how cell populations and viral titre can vary over time.
 
+%%%% Ignore from here for now
+For example, one of the parameters, S (antigenic compatibility of antibodies) is initialised by the user. By using a fixed initial value of antigenic compatibility, \emph{e.g.} $S(0) = x$, we ignore the process of naive B-cell selection (and the possible delay in the immune response due to selection), we also assume that all serum antibodies have affinity $x$ for the virus. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres %(provide reference).
 
-
-
-\section{Extension of the Model II, Theoretical Framework}
 
 In order to achieve our aims listed in the previous section, we:
 % talk about all the changes to the ODEs and why this is mathematically plausible blah blah
@@ -115,9 +117,7 @@ In order to achieve our aims listed in the previous section, we:
 
 \chapter{Our code in comparison to Group G}
 
-\newpage
-\bibliographystyle{plain}
 \bibliography{GroupDReportBibTex}
-
+\bibliographystyle{plain}
 
 \end{document}

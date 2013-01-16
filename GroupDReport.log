@@ -1,7 +1,12 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.1.11)  16 JAN 2013 09:32
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.15)  16 JAN 2013 14:53
 entering extended mode
-**C:/Users/wsmith/Documents/GitHub/GroupD_Phase2/GroupDReport.tex
-(C:/Users/wsmith/Documents/GitHub/GroupD_Phase2/GroupDReport.tex
+**C:/Users/leem/AppData/Local/Apps/2.0/14O0CYKK.20V/B14BV3XB.E2H/gith..tion_8f4
+5a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/leem/GitHub/GroupD_Phase2/Group
+DReport.tex
+
+(C:/Users/leem/AppData/Local/Apps/2.0/14O0CYKK.20V/B14BV3XB.E2H/gith..tion_8f45
+a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/leem/GitHub/GroupD_Phase2/GroupD
+Report.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -170,7 +175,9 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \f@ncyO@olf=\skip53
 \f@ncyO@orf=\skip54
 )
-(C:\Users\wsmith\Documents\GitHub\GroupD_Phase2\GroupDReport.aux)
+(C:\Users\leem\AppData\Local\Apps\2.0\14O0CYKK.20V\B14BV3XB.E2H\gith..tion_8f45
+a2159c87c850_0001.0000_4fca6a02c52cbc80\gemini\leem\GitHub\GroupD_Phase2\GroupD
+Report.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
@@ -236,29 +243,32 @@ LaTeX Font Info:    ... okay on input line 22.
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
 Chapter 1.
 
-LaTeX Warning: Citation `Hancioglu' on page 1 undefined on input line 34.
-
-
-LaTeX Warning: Citation `GroupG' on page 1 undefined on input line 48.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--49
+Underfull \hbox (badness 10000) in paragraph at lines 48--50
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 54--55
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 56--57
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
 [1
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--80
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -266,37 +276,47 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 84.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
+ [3] [4]
 Chapter 2.
-(C:\Users\wsmith\Documents\GitHub\GroupD_Phase2\GroupDReport.bbl [3
+
+(C:\Users\leem\AppData\Local\Apps\2.0\14O0CYKK.20V\B14BV3XB.E2H\gith..tion_8f45
+a2159c87c850_0001.0000_4fca6a02c52cbc80\gemini\leem\GitHub\GroupD_Phase2\GroupD
+Report.bbl [5
+
+]) [6
 
 ]
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [4
-
-] (C:\Users\wsmith\Documents\GitHub\GroupD_Phase2\GroupDReport.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+(C:\Users\leem\AppData\Local\Apps\2.0\14O0CYKK.20V\B14BV3XB.E2H\gith..tion_8f45
+a2159c87c850_0001.0000_4fca6a02c52cbc80\gemini\leem\GitHub\GroupD_Phase2\GroupD
+Report.aux) ) 
 Here is how much of TeX's memory you used:
- 2424 strings out of 493921
- 31881 string characters out of 3144873
- 95178 words of memory out of 3000000
- 5713 multiletter control sequences out of 15000+200000
- 10748 words of font info for 39 fonts, out of 3000000 for 9000
+ 2443 strings out of 493921
+ 33138 string characters out of 3144878
+ 96187 words of memory out of 3000000
+ 5729 multiletter control sequences out of 15000+200000
+ 10975 words of font info for 40 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,10n,43p,773b,226s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C
-:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/P
-rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on GroupDReport.pdf (5 pages, 78011 bytes).
+ 27i,10n,43p,1355b,226s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+mi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi
+8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.p
+fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pro
+gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on GroupDReport.pdf (7 pages, 138420 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
+ 70 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
