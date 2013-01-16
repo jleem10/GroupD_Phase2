@@ -1,13 +1,11 @@
-function [ Y, times ] = sdesolver(ModelParameters,ProgramParameters,InitialConditions,NoiseParameters)
-%SDEsolver a stochastic differential equation solver that uses the
+function [ Y, times ] = sderatesolver(ModelParameters,ProgramParameters,InitialConditions,NoiseParameters)
+%SDEratesolver a stochastic differential equation solver that uses the
 %Euler-Maruyama method to solve the influenza model.
 %   Takes as inputs struct ModelParameters, struct ProgramParameters (these
 %   define the time limits and steps), struct InitialConditions and struct
-%   NoiseParameters. NoiseParameters in configured as a 10 by 3 matrix,
-%   each row being a variable. The first column returns 1 if the variable
-%   needs noise, zero otherwise. The second column gives A and the third B,
-%   such that the noise for each variable x scales as A*x^B. Outputs
-%   are [Solution, times].
+%   NoiseParameters. NoiseParameters is configured as struct with two
+%   elements, VNoise and SNoise, describing the SD of the Gaussian Noise
+%   added to the production of V and S, respectively.
 
 times=ProgramParameters.t_start:ProgramParameters.t_step:ProgramParameters.t_end;
 
@@ -16,8 +14,7 @@ Y(:,1)=InitialConditions;
 
 for t=2:length(times)
     
-    Y(:,t) = Y(:,t-1) + ProgramParameters.t_step * DifferentialEquations(Y(:,t-1),ModelParameters)...
-        + sqrt(ProgramParameters.t_step).*NoiseParameters(:,1).*((Y(:,t-1)).^(NoiseParameters(:,2))).*randn;
+    Y(:,t) = Y(:,t-1) + ProgramParameters.t_step * DifferentialEquations(Y(:,t-1),ModelParameters,NoiseParameters);
     
     Y(:,t)=Y(:,t).*(0.^(Y(:,t)<0));
     
@@ -26,13 +23,14 @@ end
 
 end
 
-function [ dYdt] = DifferentialEquations(Y, ModelParameters)
+function [ dYdt] = DifferentialEquations(Y, ModelParameters,NoiseParameters)
 %
 % Differential Equations Governing the Model Populations
 % 
 % Input Arguments: Time, t - type DOUBLE
 %				   Model Variables, Y, - type VECTOR (as defined in SolveODE)
 %				   Model Parameters, ModelParameters - type STRUCT (as defined in SolveODE)
+%                  Noise Parameters - Struct
 %
 % Output Arguments: VECTOR dYdt containing point differentials
 %
@@ -57,7 +55,7 @@ D = 1 - H - R - I;
 %%% Calculate Local Differentials %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dYdt(1,1)  = (ModelParameters.gamma_V * I)*(1+10*randn) - (ModelParameters.gamma_VA * S * A * V) - (ModelParameters.gamma_VH * H * V) - (ModelParameters.alpha_V * V) - (ModelParameters.a_V1 * V)/(1 + ModelParameters.a_V2 * V);
+dYdt(1,1)  = (ModelParameters.gamma_V * I)*(1+NoiseParameters.VNoise*randn) - (ModelParameters.gamma_VA * S * A * V) - (ModelParameters.gamma_VH * H * V) - (ModelParameters.alpha_V * V) - (ModelParameters.a_V1 * V)/(1 + ModelParameters.a_V2 * V);
 dYdt(2,1)  = (ModelParameters.b_HD * D)*(H + R) + (ModelParameters.a_R * R) - (ModelParameters.gamma_HV * V * H) - (ModelParameters.b_HF * F * H);
 dYdt(3,1)  = (ModelParameters.gamma_HV * V * H) - (ModelParameters.b_IE * I * E) - (ModelParameters.a_I * I);
 dYdt(4,1)  = (ModelParameters.b_MD * D + ModelParameters.b_MV * V)*(1 - M) - (ModelParameters.a_M * M);
@@ -66,7 +64,7 @@ dYdt(6,1)  = (ModelParameters.b_HF * F * H) - (ModelParameters.a_R * R);
 dYdt(7,1)  = (ModelParameters.b_EM * M * E) - (ModelParameters.b_EI * I * E) + (ModelParameters.a_E)*(1 - E);
 dYdt(8,1)  = (ModelParameters.b_PM * M * P) + (ModelParameters.a_P)*(1 - P);
 dYdt(9,1)  = (ModelParameters.b_A * P) - (ModelParameters.gamma_AV * S * A * V) - (ModelParameters.a_A * A);
-dYdt(10,1) = (ModelParameters.r*P)*(1 - S);
+dYdt(10,1) = (ModelParameters.r*P)*(1 - S)*(1+NoiseParameters.SNoise*randn);
 
 end
 
