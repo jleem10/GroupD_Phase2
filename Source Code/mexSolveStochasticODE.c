@@ -17,7 +17,7 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
     int iterations, j, k;
     double *timeOutputMatrix, *outputArray;
     double **noiseData, *noiseValues, *noise;
-        
+    
     /********************************/
     /* Input reading and validation */
     /********************************/
@@ -52,6 +52,9 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
     params.a_A         = mxGetScalar(mxGetField(plhs[MODEL_PARAMETER_INDEX], 0, "a_A"));
     params.r           = mxGetScalar(mxGetField(plhs[MODEL_PARAMETER_INDEX], 0, "r"));
 
+    //Debug
+    //mexPrintf("a_A: %f\n", params.a_A);
+    
     /* Noise Input Values */
     noiseValues = mxGetPr(plhs[NOISE_OPTIONS]);
     nDimNoise = mxGetN(plhs[NOISE_OPTIONS]);
@@ -69,6 +72,12 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
         for( k=0 ; k<(int)mDimNoise ; k++)
             noiseData[k][j] = *(noiseValues + (size_t)k + (size_t)j*mDimNoise);
     
+//      //Debug
+//     mexPrintf("Noise Data\n");
+//     for(i = 0; i < nDimNoise; i++)
+//         mexPrintf("%f  %f  %f\n", noiseData[0][i], noiseData[3][i], noiseData[2][i]);
+//     mexPrintf("\n");
+    
     // Noise values to be calculated
     noise = (double*) malloc((size_t)(nDimNoise*sizeof(double)));
     
@@ -81,6 +90,12 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
     {
         x[i] = initialValues[i];
     }
+    
+     //Debug
+//      mexPrintf("Initial Values\n");
+//      for(i = 0; i < numInitialValues; i++)
+//          mexPrintf("%f ", x[i]);
+//      mexPrintf("\n");
     
     /* time */
     // Get the time range over which a solution should be computed
@@ -106,6 +121,9 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
     // Calculating the number of Iterations 
     iterations = (int) ((endOfRange - startOfRange) / stepSize) ;
     
+//      //Debug
+//      mexPrintf("Iterations: %d\n", iterations);
+     
     /************************/
     /* Creating Data Output */
     /************************/
@@ -145,19 +163,22 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
         dA  = (params.b_A * P) - (params.gamma_AV * S * A * V) - (params.a_A * A);
         dS  = (params .r*P)*(1 - S);
         
-        
-        /* Solving the ODE */
+         /* Solving the ODE */
         
         // Noise calculation
         NoiseFunction(noiseData, (int)nDimNoise, x, noise);
         
-        // Random seed for Gaussian Variable generation
-        srand(time(NULL));
+
         
         // ODE solution
         for( k=0 ; k<(int)numInitialValues ; k++ )
         {
-            xNew[k] = dx[k]*stepSize + x[k] + noise[k]*GaussianVariable()*noiseData[0][k];
+            xNew[k] = dx[k]*stepSize + x[k] + noise[k]*GaussianVariable()*noiseData[0][k]*sqrt(stepSize);
+            
+            // Check for negative values in xNew, if negative --> set to 0
+            // This can happen due to the noise
+            if(xNew[k] < 0)
+                xNew[k] = 0;
             
             /***************/ 
             /* Data output */
@@ -177,11 +198,11 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
 double GaussianVariable()
 {
     double randVar;
-    
+    randVar = 0;
     
     
     //Box-Mueller equation for a Gaussian random var [0;1]
-    randVar = sqrt( (-2) * log(rand())) * cos(2 * PI * rand());
+    randVar = sqrt( (-2) * log(rand0())) * cos(2 * PI * rand0());
     
     return randVar;
 
@@ -198,4 +219,16 @@ void NoiseFunction(double **noiseData, int length, double *x, double *noise)
     }
     
     return;
+}
+
+double rand0()
+{
+    double random;
+    
+    // Random seed for Gaussian Variable generation
+    srand(time(NULL));
+    
+    random = (rand()%10000) / 10000.0;
+
+    return random;
 }

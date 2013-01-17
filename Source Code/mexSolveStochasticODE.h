@@ -97,3 +97,7 @@ double GaussianVariable();
 
 // Outputs the noise function G(x) = ax^b
 void NoiseFunction(double **noiseData, int length, double *x, double *noise);
+
+// Outputs a uniformly distributed random number between 0 and 1
+// Note: there is a bias if RAND_MAX >> 10000 is false
+double rand0();
