@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Hancioglu}
 David~Swigon Baris~Hancioglu and Gilles Clermont.
@@ -22,6 +22,18 @@ Christine~M. Grimaldi, Ruthmarie Hicks, and Betty Diamond.
 \newblock B cell selection and susceptibility to autoimmunity.
 \newblock {\em The Journal of Immunology}, 174(4):1775--1781, 2005.
 
+\bibitem{2001}
+Desmond~J. Higham.
+\newblock An algorithmic introduction to numerical simulation of stochastic
+  differential equations.
+\newblock {\em SIAM Review}, 43(3):pp. 525--546, 2001.
+
+\bibitem{Hu}
+Jun Hu, Riqiang Fu, and Timothy~A. Cross.
+\newblock The chemical and dynamical influence of the anti-viral drug
+  amantadine on the m2 proton channel transmembrane domain.
+\newblock {\em Biophysical Journal}, 93(1):276 -- 283, 2007.
+
 \bibitem{Carneiro1}
 Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
 \newblock A model of the immune network with b-t cell co-operation i --
@@ -42,6 +54,17 @@ Hugh Mitchell, Drew Levin, Stephanie Forrest, Catherine A.~A. Beauchemin,
   influenza virus than those of seasonal and avian strains: Kinetics from
   epithelial cell culture and computational modeling.
 \newblock {\em Journal of Virology}, 85(2):1125--1135, January 15, 2011.
+
+\bibitem{Perelson}
+A.S. Perelson et~al.
+\newblock Modelling viral and immune system dynamics.
+\newblock {\em Nature Reviews Immunology}, 2(1):28--36, 2002.
+
+\bibitem{Satoh}
+Kanako Satoh, Ryouichi Nonaka, Akio Ogata, Dai Nakae, and Shin ichi Uehara.
+\newblock Effects of oseltamivir phosphate (tamiflu) and its metabolite
+  (gs4071) on monoamine neurotransmission in the rat brain.
+\newblock {\em Biological and Pharmaceutical Bulletin}, 30(9):1816--1818, 2007.
 
 \bibitem{Smith}
 Amber~M. Smith and Alan~S. Perelson.

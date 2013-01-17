@@ -1,13 +1,6 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: GroupDReport.aux
-White space in argument---line 16 of file GroupDReport.aux
- : \citation{Group
- :                 G}
-I'm skipping whatever remains of this command
 The style file: plain.bst
 Database file #1: GroupDReportBibTex.bib
-Warning--I didn't find a database entry for "Perelson"
-Warning--I didn't find a database entry for "Hu"
-Warning--I didn't find a database entry for "Satoh"
 Name 1 in "Baris Hancioglu, David Swigon, and Gilles Clermont" has a comma at the end for entry Hancioglu
 while executing---line 1049 of file plain.bst
 Name 1 in "Jorge Carneiro, Antonio Coutinho, Jose Faro, and John Stewart" has a comma at the end for entry Carneiro1
@@ -21,4 +14,4 @@ Name 1 in "Jorge Carneiro, Antonio Coutinho, Jose Faro, and John Stewart" has a 
 while executing---line 1090 of file plain.bst
 Name 1 in "Jorge Carneiro, Antonio Coutinho, Jose Faro, and John Stewart" has a comma at the end for entry Carneiro2
 while executing---line 1090 of file plain.bst
-(There were 7 error messages)
+(There were 6 error messages)

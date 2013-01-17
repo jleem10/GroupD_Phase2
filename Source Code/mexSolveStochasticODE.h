@@ -92,7 +92,7 @@ const int NOISE_OPTIONS = 4;
 const int TIME_OUTPUT_INDEX = 0;
 const int SOLUTION_OUTPUT_START_INDEX = 1;
 
-// Samples a normally distribution in boundaries [0;1]
+// Samples a normal distribution N(0;1)
 double GaussianVariable();
 
 // Outputs the noise function G(x) = ax^b

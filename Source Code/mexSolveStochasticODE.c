@@ -209,7 +209,7 @@ double GaussianVariable()
     randVar = 0;
     
     
-    //Box-Mueller equation for a Gaussian random var [0;1]
+    //Box-Mueller equation for a Gaussian random var N(0;1)
     randVar = sqrt( (-2) * log(rand0())) * cos(2 * PI * rand0());
     
     return randVar;
