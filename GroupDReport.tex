@@ -237,13 +237,13 @@ An interesting question which we addressed is the extent to which noise introduc
 
 \subsection{Virus Resurgence}
 
-One dynamically significant effect of adding noise to either the virus population V or the rate of creation of V by infected cells is the occurrence of virus resurgence and infection. If the noise introduced is significantly large then the virus population plotted against time will feature more than one spike, representing a reappearance of the virus population in the cell population. We speculate that this is the stochasticity pushing the depleted virus count above a threshold, sparking another wave of infection when the antibody count has decayed sufficiently. This new wave is accompanied by a corresponding rise in antibodies in response, hoping to combat the infection. It is interesting that the subsequent virus and antibody peaks are significantly lower than those of the first wave: this can be explained by reference to the antibody efficacy S. This grows every time a new infection appears, describing the cell population's capacity to ``remember'' how to combat the virus, making the virus less successful and demanding less antibody concentration for each wave. These effects can be observed in Figure \ref{resurgance}.
+One dynamically significant effect of adding noise to either the virus population V or the rate of creation of V by infected cells is the occurrence of virus resurgence and infection. If the noise introduced to the rate of creation of V is significantly large then the virus population plotted against time will feature more than one spike, representing a reappearance of the virus population in the cell population. We speculate that this is the stochasticity pushing the depleted virus count above a threshold, sparking another wave of infection when the antibody count has decayed sufficiently. This new wave is accompanied by a corresponding rise in antibodies in response, hoping to combat the infection. It is interesting that the subsequent virus and antibody peaks are significantly lower than those of the first wave: this can be explained by reference to the antibody efficacy S. This grows every time a new infection appears, describing the cell population's capacity to ``remember'' how to combat the virus, making the virus less successful and demanding less antibody concentration for each wave. These effects can be observed in Figure \ref{resurgance}.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=120mm]{Resurgance_scissored.pdf}
 \label{resurgance}
-\caption{Outputs for V, A and S against time, using the default parameter set and noise on V scaling linearly with V (NoiseParameters(1,1)=NoiseParameters(1,2))}
+\caption{Outputs for V, A and S against time, using the default GUI parameter set and \texttt{sderatesolver()}, with \texttt{NoiseParameters.VNoise = 5} and \texttt{NoiseParameters.SNoise=0}}
 \end{center}
 \end{figure}
 
