@@ -29,38 +29,49 @@ South Parks Road\\
 % Citations take >> "glim~\cite{paper}" to give proper spacing.
 % Acronymns (as with any other object) should not be pluralised using an apostrophe. (so ODEs not ODE's)
 % Don't use the regular speechmarks, they are not formatted correctly (so ``speech'  not "speech"')
+% Strings of references take individual boxes (so \cite{X}~\cite{Y}~\cite{Z} rather than \cite{X,Y,Z})
+% MatLab is refered to as ">> MatLab\textsuperscript{\textregistered} "
+
+%%Add these to the Bib
+
+%@article{Perelson,
+  %title={Modelling viral and immune system dynamics},
+  %author={Perelson, A.S. and others},
+  %journal={Nature Reviews Immunology},
+  %volume={2},
+  %number={1},
+  %pages={28--36},
+  %year={2002}
+%}
+
 
 \chapter{Background and Aims} %Done by Jin
 \section{Biological Problem and Previous Work}
-The influenza virus is responsible for a variety of diseases, ranging from the common cold to worldwide pandemics like the Bird flu. For the purpose of treating, and ultimately preventing infections from the virus, it would be desirable to generate a model which simulates the course of viral infection in the human respiratory epithelium. By investigating how viruses interfere with the integrity of the epithelium and the amount of time that is required for the immune response to clear the virus, 
 
-Moreover, it would be most ideal if all aspects of human epithelial immunology (\emph{e.g.} interaction of cytokines, effector cells, antibodies, virions, \emph{etc.}) are incorporated into the prospective model. Initially, a model was devised in 2007 which encompasses many of the factors involved in the immune response ~\cite{Hancioglu}, such as:
-\begin{enumerate}[a.]
-\item Antibodies and their affinity toward the circulating virus,
-\item Antigen presentation,
-\item Production and clearance of the virus, \emph{etc.}
-\end{enumerate}
+The influenza virus is responsible for considerable public discomfort, and poses the risk of seasonal pandemic and a potentially major health hazard to the elderly or infirm.~\cite{Smith} For the purposes of treating and preventing viral infections, it would be desirable to generate a model which simulates the course of viral infection. Models that study the interplay between immune system components within an individual suffering from viral infection have previously been developed (for a review, see Perelson 2002~\cite{Perelson}), and have the potenital to capture multiple aspects of human epithelial immunology (\textit{e.g.} interaction of cytokines, effector cells, antibodies, virions, \textit{etc.}). 
 
-This original model is a continuum model based on a series of ordinary differential equations (ODEs); it ultimately predicts changes in the population of healthy and infected cells, and levels of the free virus over the course of infection. \\
+In particular, a model was devised in 2007 which encompassed many of the factors involved in human-virus immune response ~\cite{Hancioglu}, such as:
 
-In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model has soundly demonstrated the cellular and viral dynamics in a hypothetical infection scenario with considerable accuracy to the data from the original work. This computational model was superb in that, the user has the freedom to customise the duration of simulations and also set the values for 27 parameters, such as viral release rates, antibody maturation and cellular turnover. \\
+\begin{itemize}
+\item Antibodies and their affinity toward the circulating virus;
+\item Antigen presentation;
+\item Production and clearance of the virus, \textit{etc.}.
+\end{itemize}
 
-%\begin{figure}[htb]
-%\includegraphics[]{}                       Include a figure from the original model and the new computational model
-%\end{figure}
+This paper of Hancioglu \textit{et al.}featured a continuum model based on a series of ordinary differential equations (ODEs). The model was used predict changes in the population of healthy and infected cells, and levels of the free virus over the course of infection. \\
 
-However, having said this, we felt that the computational model showed modest clinical relevance. The model is designed so that the parameters can be tailored to each patient's immune capacity and each virus strain's virulence, but the model only reflects the natural biological response (\emph{i.e.} the adaptive and innate immune responses) to the virus. In contrast, our group felt that incorporating the effects of anti-influenza drugs on the cellular and viral dynamics was a more pragmatic interpretation of the problem. Consequently, this would allow users to see if treatment is a viable option at specific time points, and raise the need for potential changes in treatment regimes (\emph{e.g.} combinatorial therapy of neuraminidase inhibitors). \\
+In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model successfully reproduces cellular and viral dynamics in a hypothetical infection scenario, displaying good fidelity. In addition, the authors provide an open-source implementation of the model in MatLab\textsuperscript{\textregistered}, featuring a graphic user interface (GUI) that enables users to control and systematically parse the model's 27 parameters, as well as facilitating the visualisation of multiple datasets. \\
 
-Furthermore, though our group realised that incorporating more user-dependent parameters could generate outputs for a wide variety of biological scenarios, we equally felt that having absolute control over all 27 parameters may yield biologically-irrelevant results. This would especially be the case if users inadvertently use unreasonable parameter values. For instance, the user may decide to use extremely high rate constants for viral infection ($\gamma_{HV}$) which could lead to false negatives of survival against a viral infection. We also felt that the model assumes some level of staticity; for instance, it assumes that the rate constant of virus formation from the infected cell, $\gamma_{HV}$, is the same in every infected cell. In theory, this value is likely to vary on a cell-to-cell basis (provide reference). Hence, in order to introduce a component to reflect the inherent randomness of the system, we have decided to randomise the input parameters with a pseudorandom number generator. Effectively, we wanted to introduce a level of stochasticity which is controllable to some extent, yet random enough to reflect the randomness of the process. \\
+\section{Idenitfication of areas for extension}
 
-Effectively, we propose the following list of changes to the computational model to improve its general biomedical relevance:
+Although the model is designed so that parameters can be tailored to each patient's immune capacity and each virus strain's virulence, it only reflects the natural biological response (\textit{i.e.} the adaptive and innate immune responses) to the virus. Moreover, the model was entirely deterministic: real biological processes tend to involve considerable noise, and several of the processes included in the system are thought to be intrinsically stochastic. Finally, we noted that the mode ommited certain interactions between immune system components.
+Our group felt that the model could be extended further by:
 \begin{enumerate}
-\item Considering the effects of anti-influenza drugs such as Tamiflu and Relenza (neuraminidase inhibitors) on the release capacity of the virus
-\item Addition of helper T-cell (T\textsubscript{H} cell) dynamics as they help to form plasma cells, but their role has been omitted in the original and computational models.
-\item Pseudorandomisation of select parameters: a select number of parameters can have their initial values defined by the user, but these input values will be used as a seed for a pseudorandom number generator, thus introducing stochasticity. This will be solved by a stochastic differential equation solver.\\
+\item Considering the effects of anti-influenza drugs on the cellular and viral dynamics;
+\item Converting the coupled ODE representation to include stochastic noise;
+\item Including the influence of helper T-cells (T\textsubscript{H} cells), which help to form plasma cells.
 \end{enumerate}
-
-Ultimately, these extensions culminated to a new model as shown in Figure ~\ref{newmodel}:
+In addition, we scrutinised the code of their implementation closely, and investigated ways in which it could be rewritten in a more efficient manner. Ultimately, these extensions culminated to a new model as shown in Figure ~\ref{newmodel}:
 
 \begin{figure}[htb]
 \label{newmodel}
@@ -72,13 +83,13 @@ Ultimately, these extensions culminated to a new model as shown in Figure ~\ref{
 \section{Extension of the Model I -- Modelling Antiviral therapy}
 
 To extend the model, we decided to investigate the effects of adding an antiviral agent to the system.
-Antivirals are drugs used to control viral infections both theraputically and prophylactically. They operate by interfering with the virus copying sequence at one or more points in its replication cycle. For example, two common antiviral targets are:
+Antivirals are drugs used to control viral infections both therapeutically and prophylactically. They operate by interfering with the virus copying sequence at one or more points in its replication cycle. For example, two common antiviral targets are:
 \begin{enumerate}
-\item \textbf{Viral M2 proton channels:} Disruption of viral unpackaging in host cytosol \textit{via} the competetive inhibition of the viral M2 proton channel;~\cite{Hu}
-\item \textbf{Viral Neuraminidase:} Prevention of viral budding \textit{via} competetive inhibition of the neuraminidases responsible for severing newly-created virus particles from their host cells.\cite{Satoh}  
+\item \textbf{Viral M2 proton channels:} Disruption of viral unpackaging in host cytosol \textit{via} the competitive inhibition of the viral M2 proton channel;~\cite{Hu}
+\item \textbf{Viral Neuraminidase:} Prevention of viral budding \textit{via} competitive inhibition of the neuraminidases responsible for severing newly-created virus particles from their host cells.\cite{Satoh}  
 \end{enumerate}
 Instances of antivirals exploiting the above mechanisms include  Amantadine (trade name ``Symmetrel'') and Oseltamivir phosphate (``Tamiflu'').\\
-%Tamifilu works by inhibiting the action of the enzyme viral neuraminidase, whose action is necessary to allow newly-created viral particles to detach from their infected hosts.S
+%Tamiflu works by inhibiting the action of the enzyme viral neuraminidase, whose action is necessary to allow newly-created viral particles to detach from their infected hosts.S
 %Symmetrel, an older drug, operates by interfering with the action of viral M2 proton channels, preventing virus particles from becoming decoated once they are absorbed into cells by endocytosis.
 
 \subsection{Including Drug Variables in Existing Model}
@@ -95,11 +106,11 @@ The influence of the 2 drug types was accommodated by changing terms in equation
 where $\epsilon$ represents the drug's efficacy,
 
 \begin{equation}
-\epsilon = \frac{\epsilon_{max}D(t)^{n}}{D(t)^{n}+\mathrm{IC}^{n}_{50}}
+\epsilon(t) = \frac{\epsilon_{max}D(t)^{n}}{D(t)^{n}+\mathrm{IC}^{n}_{50}}
 \end{equation}
 
 as a function of time.
-In their 2011 paper, the authors assumed a drug concentration that was constant with respect to time. Adopting this simplification would have prevented us from analysing effects such as the dependency of drug impact on the drug administration time.
+In their 2011 paper, the authors assumed a drug concentration that was constant with respect to time. Adopting this simplification would have prevented us from analyzing effects such as the dependency of drug impact on the drug administration time.
 We sought to extend this work by combining a more realistic, temporal drug model with the extended dynamic model of group G.\cite{Group G}
 
 \begin{figure}[htb]
@@ -115,12 +126,26 @@ To achieve this, we used a time-dependent expression for $\epsilon$ of the form
 \epsilon(t) = \frac{c_{1}t}{1 + c_{2}+c_{3}^{2}t^{2}}. \label{eq:drugeff}
 \end{equation}
 Equation \eqref{eq:drugeff} seeks to emulate a realistic drug concentration profile in infected tissue.\footnote{This equation has a similar form to analytical solutions to a 2-compartment Pharmacokinetic model, such as the one reported in \cite{}}
-A rapid intial surge in drug concentration, following administration, is followed by a slow, exponential purging of the drug from the tissues as it is excreted (figure~\ref{fig:DrugProfile}). The parameters in equation~\ref{eq:drugeff} can be found by fitting to known experimental data pertaining to the drug's pharmacokinetic profile: specifically, its half life $t_{\frac{1}{2}}$, the time after administr
-
+A rapid initial surge in drug concentration following administration ($t = 0$), is followed by a slow, exponential purging of the drug from the tissues as it is excreted (figure~\ref{fig:DrugProfile}). The parameters in equation~\ref{eq:drugeff} can be found by fitting to known experimental data pertaining to the drug's pharmacokinetic profile.
+% by Antonietta
+Specifically, its peak time $t_{peak}$, when the full concentration $d_{max}$ of the drug has been released, and its half life $t_{half}$, which is the time after administration at which the concentration of the drug has reached half its maximal value. The constants $c_1$, $c_2$ and $c_3$ relate to the experimental data $d_{max}$, $t_{peak}$ and $t_{half}$ as follows:
+\begin{eqnarray}
+c_3 &=& \frac{1}{t_{peak}}\\
+c_2 &=& \frac{(c_3 t_{half})^2 - 4 c_3 t_{half} + 1}{t_{half}}\\
+c_1 &=& d_{max} (2 c_3 + c_2)
+\end{eqnarray}
+Also, in order to control the time of administration, a further parameter $t_{on}$ has to be introduced, and equation \eqref{eq:drugeff} changed to the form
+\begin{equation}
+f(n) = \left\{ 
+   \begin{array}{l l}
+     n/2 & \quad \text{if $n$ is even}\\
+     -(n+1)/2 & \quad \text{if $n$ is odd}
+   \end{array} \right.
+\end{equation}
 Key questions include:
 \begin{enumerate}
 \item How does the time delay between infection onset and drug administration effect the treatment outcome?
-\item Can polytherapy exhibit synergy? \textit{I.e.} could 2 drugs working together ever acheiver more than the sum of their invidudual effects?
+\item Can polytherapy exhibit synergy? \textit{I.e.} could 2 drugs working together ever achieve more than the sum of their individual effects?
 \end{enumerate}
 
 \subsubsection{Modelling Viral Drug resistance}

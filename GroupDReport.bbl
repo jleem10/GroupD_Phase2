@@ -17,6 +17,11 @@ N.~Pearce L. Bowler F. Wolfreys M. Aldeghi~I. Frost and P.~Taylor.
   infection.
 \newblock 2013.
 
+\bibitem{Grimaldi15022005}
+Christine~M. Grimaldi, Ruthmarie Hicks, and Betty Diamond.
+\newblock B cell selection and susceptibility to autoimmunity.
+\newblock {\em The Journal of Immunology}, 174(4):1775--1781, 2005.
+
 \bibitem{Carneiro1}
 Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
 \newblock A model of the immune network with b-t cell co-operation i --
@@ -28,6 +33,15 @@ Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
 \newblock A model of the immune network with b-t cell co-operation ii -- the
   simulation of ontogenesis.
 \newblock {\em Journal of Theoretical Biology}, 182:531--547, 1996.
+
+\bibitem{MitchellJanuary152011}
+Hugh Mitchell, Drew Levin, Stephanie Forrest, Catherine A.~A. Beauchemin,
+  Jennifer Tipper, Jennifer Knight, Nathaniel Donart, R.~Colby Layton, John
+  Pyles, Peng Gao, Kevin~S. Harrod, Alan~S. Perelson, and Frederick Koster.
+\newblock Higher level of replication efficiency of 2009 (h1n1) pandemic
+  influenza virus than those of seasonal and avian strains: Kinetics from
+  epithelial cell culture and computational modeling.
+\newblock {\em Journal of Virology}, 85(2):1125--1135, January 15, 2011.
 
 \bibitem{Smith}
 Amber~M. Smith and Alan~S. Perelson.
