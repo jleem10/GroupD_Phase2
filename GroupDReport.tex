@@ -212,6 +212,7 @@ The study of stochastic differential equations (SDEs) is a widely studied topics
 In the above, $f(X,t)$ is the ``drift function" of the system that would comprise a traditional ODE and ``noise'' is the component that contributes the stochastic element with time. It is possible to introduce a traditional finite-difference forward-regression approach, by implementing the Euler-Maruyama method for an SDE, such that:
 
 \begin{align}
+\label{eqn:eulerMaruyama}
 X(t+\delta t) = X(t) + (\delta t)\, \mathrm f (X(t)) + \sqrt{ \delta t}\, \mathrm G (X(t))\, \eta \quad \text{such that} \quad \eta \in N(0,1)
 \end{align}
 
@@ -225,7 +226,39 @@ The next approach, which is possibly more theoretically justifiable, is to allow
 
 These two approaches were implemented in two different solver functions: \texttt{sdesolver()} and \texttt{sderatesolver()}, respectively. These resembled the native Matlab\textsuperscript{\textregistered} solvers, but with an extra input, describing the nature of the diffusion coefficient $G(X(t))$. \texttt{sdesolver()} is handed a two by ten dimensional matrix containing the vectors $a$ and $b$, used such that $G(X)=a.$*$X.^b$, elementwise. This gives a wide sampling of potential diffusion functions, allowing for easy sampling of interesting parameter spaces. The second function, \texttt{sderatesolver()}, demands two inputs, which specify the strength of the noise added to the creation rates of V and S, these being judged to be the processes most likely to realistically exhibit highly stochastic behaviour. A difficulty of implementation involved forcing all variables to remain non--negative: if either the numerical methods or stochastic noise push any variables below zero into an unphysical region of phase space, the variables would quickly and collectively diverge into positives or negative infinities. This was avoided with a simple zero check and modification.
 
-\subsection{Implementation in C++ with Mex files}
+\subsection{Implementation in C with Mex files} %Written by Malte
+
+The implementation of stochasticity in C was done reusing parts of Group H's C++ mex code and converting this to C syntax and adding a stochastic ODE solver after the Euler-Maruyama method described earlier. A 10 by 2 matrix with noise parameters a and b, representing the inputs in $G(x) = ax^b$ as described in the section above, was read in and used to calculate a noise factor, $G(x)$ from equation \eqref{eqn:eulerMaruyama}. In order to generate a Gaussian random variable, denoted $\eta$ in the aforementioned equation, a Box-Mueller transform \cite{box1958} was used:
+
+\begin{align}
+\label{eqn:boxMueller}
+X_1 = \sqrt{ -2\, \log(U_1)}\, \cos(2 \pi U_2) 
+\end{align}
+
+In this equation $U_1$ and $U_2$ denote uniformly distributed random numbers in the interval $[0;1]$. The method used to create these uniformly distributed random numbers was: 
+
+$\textit{rand()}\,\%\, 1001 / 1000$ 
+The random number generator \textit{rand()} was seeded by the CPU time at every loop iteration, thus the same seed was used for the $2N$ calls to \textit{rand()} at every iteration, where $N$ is the number of equations in the system of coupled ODEs. This seeding method can be a cause for systematic error, due ot the pseudo-randomness of the \textit{rand()} function in C. A further cause of systematic error is if RAND\_MAX $\gg 1000$ is not true. In this case there is a bias towards lower values. Furthermore, the uniform random variable only being sampled to 3 decimal places can cause errors in the distribution of the gaussian random variable.
+
+The mex function was tested against the same code in matlab for different numbers of iterations of the main loop, dependent on start and end times and the timestep. The time comparison obtained from this can be seen in Table \ref{tbl:matlabCComparison}.
+
+\begin{table}
+\centering
+\begin{tabular}{ | c | c | c | c | }
+\hline
+Iteration & Matlab Code Time (s) & Mex Code Time (s) & Speed up factor \\ \hline
+1000 & 0.0016 & 0.0516 & 32.25 \\ \hline
+3000 & 0.0045 & 0.1550 & 34.44 \\ \hline
+10000 & 0.0147 & 0.5130 & 34.90 \\ \hline
+100000 & 0.1480 & 5.1298 & 34.66 \\
+\hline
+\end{tabular}
+\caption{Comparison of Run times for Matlab and C implementation of the stochastic solver. The simulation end time was varied from 10 to 1000 with start time 0 and timestep 0.01. All other parameters used were given by the default values in the GUI.}
+\label{tbl:matlabCComparison}
+\end{table}
+
+The mex solver in C exhibits some numerical instability, which occurs occasionally when the initial value for the Virus population, $V$, is at around 0.01 and the timestep is of a similar order of magnitude. This is an instability which is inherent in the method and its removal is out of the scope of this project.
+
 
 \section{Results}
 
