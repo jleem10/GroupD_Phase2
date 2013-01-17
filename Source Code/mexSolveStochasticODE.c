@@ -149,7 +149,7 @@ void mexFunction(int nrhs, mxArray *prhs[], int nlhs, const mxArray *plhs[])
     outputArray = mxGetPr(prhs[SOLUTION_OUTPUT_START_INDEX]);
     
     // Saving the initial values in the output array
-    for( j=0 ; j<=numInitialValues ; j++ )
+    for( j=0 ; j<numInitialValues ; j++ )
         outputArray[j*(iterations+1)] = x[j];
     
     /**********************/
