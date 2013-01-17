@@ -2,6 +2,9 @@
 %%% Model Parameters, Program Parameters, Initial Conditions %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+clear all
+close all
+
 %%% Set up default values in structures/arrays %%%
 
 %%% ModelParamaters contains rate constants for the ODEs %%%
@@ -38,13 +41,13 @@ handles.ModelParameters.r           = 3e-5;
 %%% ProgramParameters contains information such as start and end times %%%
 
 handles.ProgramParameters.t_start   = 0;        % Start time
-handles.ProgramParameters.t_end     = 30;       % End time
+handles.ProgramParameters.t_end     = 100;       % End time
 handles.ProgramParameters.t_step    = 0.01;     % Timestep
 
 
 %%% InitialConditions contains the initial values of the variables %%%
 
-handles.InitialConditions(1)    = 0.01;         % V(0)
+handles.InitialConditions(1)    = 0.1;         % V(0)
 handles.InitialConditions(2)    = 1;            % H(0)
 handles.InitialConditions(3)    = 0;            % I(0)
 handles.InitialConditions(4)    = 0;            % M(0)
@@ -60,7 +63,7 @@ options.stepSize                = 0.01;         % Timestep
 
 %%% NoiseParameters contains the initial values of the variables %%%
 
-handles.NoiseParameters(1,1)    = 0;            % V(0)
+handles.NoiseParameters(1,1)    = 1;            % V(0)
 handles.NoiseParameters(1,2)    = 0;            % H(0)
 handles.NoiseParameters(1,3)    = 0;            % I(0)
 handles.NoiseParameters(1,4)    = 0;            % M(0)
@@ -71,7 +74,7 @@ handles.NoiseParameters(1,8)    = 0;            % P(0)
 handles.NoiseParameters(1,9)    = 0;            % A(0)
 handles.NoiseParameters(1,10)   = 0;            % S(0)
 
-handles.NoiseParameters(2,1)    = 0;            % V(0)
+handles.NoiseParameters(2,1)    = 1;          % V(0)
 handles.NoiseParameters(2,2)    = 0;            % H(0)
 handles.NoiseParameters(2,3)    = 0;            % I(0)
 handles.NoiseParameters(2,4)    = 0;            % M(0)
@@ -82,30 +85,20 @@ handles.NoiseParameters(2,8)    = 0;            % P(0)
 handles.NoiseParameters(2,9)    = 0;            % A(0)
 handles.NoiseParameters(2,10)   = 0;            % S(0)
 
-handles.NoiseParameters(3,1)    = 0.5;          % V(0)
-handles.NoiseParameters(3,2)    = 0;            % H(0)
-handles.NoiseParameters(3,3)    = 0;            % I(0)
-handles.NoiseParameters(3,4)    = 0;            % M(0)
-handles.NoiseParameters(3,5)    = 0;            % F(0)
-handles.NoiseParameters(3,6)    = 0;            % R(0)
-handles.NoiseParameters(3,7)    = 0;            % E(0)
-handles.NoiseParameters(3,8)    = 0;            % P(0)
-handles.NoiseParameters(3,9)    = 0;            % A(0)
-handles.NoiseParameters(3,10)   = 0;            % S(0)
-
 
 numTrials = 10;
 
 total = 0;
+start_time = 0;
 for i=1:numTrials
 
-    start = tic;
+    start_time = tic;
     
     [mxTimes, mxSolution] = mexSolveStochasticODE(handles.ModelParameters,...
         [handles.ProgramParameters.t_start,handles.ProgramParameters.t_end],...
         handles.InitialConditions, options, handles.NoiseParameters);
 
-    total = total + toc(start);
+    total = total + toc(start_time);
 
 end
 
@@ -115,7 +108,7 @@ total/numTrials
 %%% Note: noise input is different for matlab and C code
 %%% changing noise input to have the same input for matlab function
 
-handles.NoiseParameters(1,1)    = 0;            % V(0)
+handles.NoiseParameters(1,1)    = 1;          % V(0)
 handles.NoiseParameters(2,1)    = 0;            % H(0)
 handles.NoiseParameters(3,1)    = 0;            % I(0)
 handles.NoiseParameters(4,1)    = 0;            % M(0)
@@ -126,7 +119,7 @@ handles.NoiseParameters(8,1)    = 0;            % P(0)
 handles.NoiseParameters(9,1)    = 0;            % A(0)
 handles.NoiseParameters(10,1)   = 0;            % S(0)
 
-handles.NoiseParameters(1,2)    = 0;            % V(0)
+handles.NoiseParameters(1,2)    = 1;          % V(0)
 handles.NoiseParameters(2,2)    = 0;            % H(0)
 handles.NoiseParameters(3,2)    = 0;            % I(0)
 handles.NoiseParameters(4,2)    = 0;            % M(0)
@@ -139,15 +132,16 @@ handles.NoiseParameters(10,2)   = 0;            % S(0)
 
 
 total = 0;
+start_time = 0;
 for i=1:numTrials
 
-    start = tic;
+    start_time = tic;
     
     [Solution, times] = sdesolver(handles.ModelParameters,...
         handles.ProgramParameters, handles.InitialConditions,...
         handles.NoiseParameters);
 
-    total = total + toc(start);
+    total = total + toc(start_time);
 
 end
 
@@ -155,6 +149,6 @@ total/numTrials
 
 figure;
 subplot(1,2,1);
-plot(mxTimes, mxSolution(:,2));
+plot(mxTimes, mxSolution(:,1));
 subplot(1,2,2);
-plot(times, Solution(2,:));
+plot(times, Solution(1,:));
