@@ -123,7 +123,7 @@ We sought to extend this work by combining a more realistic, temporal drug model
 
 To achieve this, we used a time-dependent expression for $\epsilon$ of the form
 \begin{equation}
-\epsilon(t) = \frac{c_{1}t}{1 + c_{2}+c_{3}^{2}t^{2}}. \label{eq:drugeff}
+\epsilon(t) = \frac{c_{1}t}{1 + c_{2}t+c_{3}^{2}t^{2}}. \label{eq:drugeff}
 \end{equation}
 Equation \eqref{eq:drugeff} seeks to emulate a realistic drug concentration profile in infected tissue.\footnote{This equation has a similar form to analytical solutions to a 2-compartment Pharmacokinetic model, such as the one reported in \cite{}}
 A rapid initial surge in drug concentration following administration ($t = 0$), is followed by a slow, exponential purging of the drug from the tissues as it is excreted (figure~\ref{fig:DrugProfile}). The parameters in equation~\ref{eq:drugeff} can be found by fitting to known experimental data pertaining to the drug's pharmacokinetic profile.
@@ -136,12 +136,20 @@ c_1 &=& d_{max} (2 c_3 + c_2)
 \end{eqnarray}
 Also, in order to control the time of administration, a further parameter $t_{on}$ has to be introduced, and equation \eqref{eq:drugeff} changed to the form
 \begin{equation}
-f(n) = \left\{ 
+\epsilon(n) = \left\{ 
    \begin{array}{l l}
-     n/2 & \quad \text{if $n$ is even}\\
-     -(n+1)/2 & \quad \text{if $n$ is odd}
-   \end{array} \right.
+     0 & \quad \text{for} \quad 0 \leq t \leq t_{on}\\
+     \frac{\displaystyle c_{1}(t-t_{on})}{\displaystyle 1 + c_{2}(t-t_{on})+c_{3}^{2}(t-t_{on})^{2}} & \quad \text{for} \quad t > t_{on}
+   \end{array} \right. \label{eq:drugadmin}
 \end{equation}
+\begin{figure}[htb]
+\begin{centering}
+\includegraphics[width=150mm]{drugAdministration.png}
+\caption{Plot of $\epsilon(t)$ against $t$ according to equation~\eqref{eq:drugadmin}. The input parameters for this graph are: $d_{max} = 2$, $t_{on} = 3$, $t_{peak} = 0.5$, $t_{half} = 0.9$, which results in $c_1 = 1.42$, $c_2 = -3.29$, $c_3 = 2$.}
+\label{fig:DrugProfile}
+\end{centering}
+\end{figure}
+
 Key questions include:
 \begin{enumerate}
 \item How does the time delay between infection onset and drug administration effect the treatment outcome?

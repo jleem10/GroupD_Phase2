@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.2)  17 JAN 2013 16:21
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.2)  17 JAN 2013 17:21
 entering extended mode
 **C:/Users/ambuehl/AppData/Local/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/gith..tion_
 8f45a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/ambuehl/GitHub/GroupD_Phase2
@@ -183,7 +183,11 @@ LaTeX Info: The control sequence `\]' is already robust on input line 472.
 )
 (C:\Users\ambuehl\AppData\Local\Apps\2.0\WOCVKN3N.WW6\0XJB2ALL.OVB\gith..tion_8
 f45a2159c87c850_0001.0000_4fca6a02c52cbc80\gemini\ambuehl\GitHub\GroupD_Phase2\
-GroupDReport.aux)
+GroupDReport.aux
+
+LaTeX Warning: Label `fig:DrugProfile' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
@@ -312,19 +316,32 @@ Package pdftex.def Info: DrugProfile.png used on input line 118.
 [4 <C:/Users/ambuehl/AppData/Local/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/gith..tio
 n_8f45a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/ambuehl/GitHub/GroupD_Phas
 e2/DrugProfile.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 159--160
+<drugAdministration.png, id=35, 422.32782pt x 316.18124pt>
+File: drugAdministration.png Graphic file (type png)
+
+<use drugAdministration.png>
+Package pdftex.def Info: drugAdministration.png used on input line 147.
+(pdftex.def)             Requested size: 426.79134pt x 319.53351pt.
+ [5 <C:/Users/ambuehl/AppData/Local/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/gith..ti
+on_8f45a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/ambuehl/GitHub/GroupD_Pha
+se2/drugAdministration.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
  []
 
-[5] [6] [7] [8] <Resurgance_scissored.pdf, id=50, 322.20375pt x 633.36626pt>
+
+Overfull \vbox (0.17416pt too high) has occurred while \output is active []
+
+
+[6] [7] [8] <Resurgance_scissored.pdf, id=51, 322.20375pt x 633.36626pt>
 File: Resurgance_scissored.pdf Graphic file (type pdf)
 
 <use Resurgance_scissored.pdf>
-Package pdftex.def Info: Resurgance_scissored.pdf used on input line 247.
+Package pdftex.def Info: Resurgance_scissored.pdf used on input line 255.
 (pdftex.def)             Requested size: 341.43306pt x 671.19109pt.
 
 
-LaTeX Warning: Float too large for page by 25.68385pt on input line 251.
+LaTeX Warning: Float too large for page by 25.68385pt on input line 259.
 
 [9] [10 <C:/Users/ambuehl/AppData/Local/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/gith
 ..tion_8f45a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/ambuehl/GitHub/GroupD
@@ -344,15 +361,18 @@ GroupDReport.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 2513 strings out of 493921
- 34225 string characters out of 3144870
- 101822 words of memory out of 3000000
- 5792 multiletter control sequences out of 15000+200000
+ 2519 strings out of 493921
+ 34368 string characters out of 3144870
+ 100871 words of memory out of 3000000
+ 5797 multiletter control sequences out of 15000+200000
  12290 words of font info for 45 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,12n,43p,1487b,258s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,11n,43p,1487b,258s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/
@@ -368,9 +388,9 @@ TeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX
 9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
 onts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on GroupDReport.pdf (13 pages, 273070 bytes).
+Output written on GroupDReport.pdf (13 pages, 278447 bytes).
 PDF statistics:
- 114 PDF objects out of 1000 (max. 8388607)
+ 115 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
