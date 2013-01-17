@@ -34,16 +34,9 @@ South Parks Road\\
 
 %%Add these to the Bib
 
-%@article{Perelson,
-  %title={Modelling viral and immune system dynamics},
-  %author={Perelson, A.S. and others},
-  %journal={Nature Reviews Immunology},
-  %volume={2},
-  %number={1},
-  %pages={28--36},
-  %year={2002}
-%}
-
+\begin{abstract}
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+\end{abstract}
 
 \chapter{Background and Aims} %Done by Jin
 \section{Biological Problem and Previous Work}
@@ -60,7 +53,7 @@ In particular, a model was devised in 2007 which encompassed many of the factors
 
 This paper of Hancioglu \textit{et al.}featured a continuum model based on a series of ordinary differential equations (ODEs). The model was used predict changes in the population of healthy and infected cells, and levels of the free virus over the course of infection. \\
 
-In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab and C++ code ~\cite{GroupG}. This computational model successfully reproduces cellular and viral dynamics in a hypothetical infection scenario, displaying good fidelity. In addition, the authors provide an open-source implementation of the model in MatLab\textsuperscript{\textregistered}, featuring a graphic user interface (GUI) that enables users to control and systematically parse the model's 27 parameters, as well as facilitating the visualisation of multiple datasets. \\
+In 2013, the results of the model have been reproduced by members of Group G by using a series of Matlab\textsuperscript{\textregistered} and C++ code ~\cite{GroupG}. This computational model successfully reproduces cellular and viral dynamics in a hypothetical infection scenario, displaying good fidelity. In addition, the authors provide an open-source implementation of the model in MatLab\textsuperscript{\textregistered}, featuring a graphic user interface (GUI) that enables users to control and systematically parse the model's 27 parameters, as well as facilitating the visualisation of multiple datasets. \\
 
 \section{Idenitfication of areas for extension}
 
@@ -111,7 +104,7 @@ where $\epsilon$ represents the drug's efficacy,
 
 as a function of time.
 In their 2011 paper, the authors assumed a drug concentration that was constant with respect to time. Adopting this simplification would have prevented us from analyzing effects such as the dependency of drug impact on the drug administration time.
-We sought to extend this work by combining a more realistic, temporal drug model with the extended dynamic model of group G.\cite{Group G}
+We sought to extend this work by combining a more realistic, temporal drug model with the extended dynamic model of group G.\cite{GroupG}
 
 \begin{figure}[htb]
 \begin{centering}
@@ -136,24 +129,16 @@ c_1 &=& d_{max} (2 c_3 + c_2)
 \end{eqnarray}
 Also, in order to control the time of administration, a further parameter $t_{on}$ has to be introduced, and equation \eqref{eq:drugeff} changed to the form
 \begin{equation}
-\epsilon(n) = \left\{ 
+f(n) = \left\{ 
    \begin{array}{l l}
-     0 & \quad \text{for} \quad 0 \leq t \leq t_{on}\\
-     \frac{\displaystyle c_{1}(t-t_{on})}{\displaystyle 1 + c_{2}(t-t_{on})+c_{3}^{2}(t-t_{on})^{2}} & \quad \text{for} \quad t > t_{on}
-   \end{array} \right. \label{eq:drugadmin}
+     n/2 & \quad \text{if $n$ is even}\\
+     -(n+1)/2 & \quad \text{if $n$ is odd}
+   \end{array} \right.
 \end{equation}
-\begin{figure}[htb]
-\begin{centering}
-\includegraphics[width=150mm]{drugAdministration.png}
-\caption{Plot of $\epsilon(t)$ against $t$ according to equation~\eqref{eq:drugadmin}. The input parameters for this graph are: $d_{max} = 2$, $t_{on} = 3$, $t_{peak} = 0.5$, $t_{half} = 0.9$, which results in $c_1 = 1.42$, $c_2 = -3.29$, $c_3 = 2$.}
-\label{fig:DrugProfile}
-\end{centering}
-\end{figure}
-
 Key questions include:
 \begin{enumerate}
 \item How does the time delay between infection onset and drug administration effect the treatment outcome?
-\item Can polytherapy exhibit synergy? \textit{I.e.} could 2 drugs working together ever achieve more than the sum of their individual effects?
+\item Can polytherapy exhibit synergy? \textit{i.e.} could 2 drugs working together ever achieve more than the sum of their individual effects?
 \end{enumerate}
 
 \subsubsection{Modelling Viral Drug resistance}
@@ -210,45 +195,49 @@ In summary, to account for the role of helper T cells in plasma cell synthesis w
 \end{eqnarray*}
 
 \section{Introduction of Stochasticity} %Done by Jin and Owen
-To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code \emph{per se}, but instead give the user a more realistic account of how cell populations and viral titre can vary over time. We decided that the two areas in which introduction of stochasticity were most biologiclaly justified were in virus production and development of antibody affinity. It is understood that there is a wide range of variability in virus production from infected cells \cite{MitchellJanuary152011}, so we felt justified in adding a noise term which affects the total virus population V. Similarly, the model already incorporates the affinity maturation of antibodies, but fails to model the fundamentally stochastic nature of the recombination process. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres \cite{Grimaldi15022005}. Consequently, we felt that another target for noise terms was the rate of change of variable S, in order to incorporate the iterative, random process of antibody selection.
+To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code, but instead give the user a more realistic account of how cell populations and viral titre can vary over time. We decided that the two areas in which introduction of stochasticity were most biologiclaly justified were in virus production and development of antibody affinity. It is understood that there is a wide range of variability in virus production from infected cells \cite{MitchellJanuary152011}, so we felt justified in adding a noise term which affects the total virus population V.
+
+Similarly, the model already incorporates the affinity maturation of antibodies, but fails to model the fundamentally stochastic nature of the recombination process. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres \cite{Grimaldi15022005}. Consequently, we felt that another target for noise terms was the rate of change of variable S, in order to incorporate the iterative, random process of antibody selection.
 
 There were two possible ways of approaching this problem; it is possible to introduce stochastic noise into either the cell populations or the dynamical rate paramters. Both were explored, and are discussed below.
 
 \subsection{Stochastic Populations}
 
-The study of stochastic differential equations (SDEs) is a widely studied topics in mathematics, with many resources for different algorithms and implementations. The ideal is to solve a differential equation with a well-defined noise function adding a stochastic element over time:
+The study of stochastic differential equations (SDEs) is a widely studied topics in mathematics, with many resources for different algorithms and implementations \cite{2001}. The ideal is to solve a differential equation with a well-defined noise function adding a stochastic element over time:
 
 \begin{align}
 \frac{\mathrm d X}{\mathrm d t}(t) = \mathrm f (X) + \text{``noise''}
 \end{align}
 
-In the above, $f(X,t)$ is the ``drift function" of the system that would comprise a traditional ODE and $g(t)$ is the component that contributes the stochastic noise with time. It is possible to introduce a traditional finite-difference forward-regression approach, by implementing the Euler-Maruyama method for an SDE, such that:
+In the above, $f(X,t)$ is the ``drift function" of the system that would comprise a traditional ODE and ``noise'' is the component that contributes the stochastic element with time. It is possible to introduce a traditional finite-difference forward-regression approach, by implementing the Euler-Maruyama method for an SDE, such that:
 
 \begin{align}
 X(t+\delta t) = X(t) + (\delta t)\, \mathrm f (X(t)) + \sqrt{ \delta t}\, \mathrm G (X(t))\, \eta \quad \text{such that} \quad \eta \in N(0,1)
 \end{align}
 
-Here, $N(0,1)$ is a normal distribution, with a mean of zero and standard deviation of one and $G(X(t))$ is the ``diffusion coefficient'' for our system. Given access to the functions $f(x)$ and $G(X)$ and a normally distributed random number generator, it is possible to solve this iteratively, with each new timestep explicitly using the previous one. This is a simple but reliable implementation, which represents a good method for introducing background noise into the concentrations of various variables in our system.
+Here, $N(0,1)$ is a normal distribution, with a mean of zero and standard deviation of one and $G(X(t))$ is the ``diffusion coefficient'' for our system. Given access to the functions $f(x)$ and $G(X)$ and a normally distributed random number generator, it is possible to solve this iteratively, with each new timestep explicitly using the previous one. This is a simple but reliable implementation, which represents a good method for introducing background noise into the concentrations of variables in our system.
 
 \subsection{Stochastic Rates}
 
-The next approach, which is possibly more theoretically justifiable, is to allow the parameters of the ODE system to vary stochastically with each call of the function $f(X(T))$. This allows the code to isolate the mechanisms are contributing noise, rather than simply adding some arbitrary amount of stochasticity to the variable each timestep. This method allows for the standard library of ODE solving regression algorithms, since it is the drift function that contributes noise rather than the finite different method itself. It is consequently slightly easier to implement in various languages.
+The next approach, which is possibly more theoretically justifiable, is to allow the parameters of the ODE system to vary stochastically with each call of the function $f(X(T))$. This allows the code to isolate the mechanisms are contributing noise, rather than simply adding some arbitrary amount of stochasticity to the variable after each timestep. This method allows for the standard library of ODE solving regression algorithms, since it is the drift function that contributes noise rather than the finite different method itself. It is consequently slightly easier to implement in various languages.
 
-\subsection{Implementation in Matlab}
+\subsection{Implementation in Matlab\textsuperscript{\textregistered}}
 
-These two approaches were implemented in two different solver functions: \texttt{sdesolver()} and \texttt{sderatesolver()}, respectively. These resembled the native Matlab solvers, but with an extra input, describing the nature of the diffusion coefficient $G(X(t))$. \texttt{sdesolver()} is handed a two by ten dimensoinal matrix containing the vectors $a$ and $b$, used such that $G(X)=a.$*$X.^b$, elementwise. This gives a wide sampling of potential diffusion functions, allowing for easy sampling of interesting parameter spaces. The second function, \texttt{sderatesolver()}, demands two inputs, which specify the strength of the noise added to the creation of V and S, these being judged to be the processes most likely to realistically exhibit highly stochastic behaviour. A difficulty of implementation involved forcing all variables to remain non--negative: if either the numerical methods or stochastic noise push any variables below zero into an unphysical region of phase space, the variables would quickly and collectively diverge into positives or negative infinities. This was avoided with a simple check and modification.
+These two approaches were implemented in two different solver functions: \texttt{sdesolver()} and \texttt{sderatesolver()}, respectively. These resembled the native Matlab\textsuperscript{\textregistered} solvers, but with an extra input, describing the nature of the diffusion coefficient $G(X(t))$. \texttt{sdesolver()} is handed a two by ten dimensional matrix containing the vectors $a$ and $b$, used such that $G(X)=a.$*$X.^b$, elementwise. This gives a wide sampling of potential diffusion functions, allowing for easy sampling of interesting parameter spaces. The second function, \texttt{sderatesolver()}, demands two inputs, which specify the strength of the noise added to the creation rates of V and S, these being judged to be the processes most likely to realistically exhibit highly stochastic behaviour. A difficulty of implementation involved forcing all variables to remain non--negative: if either the numerical methods or stochastic noise push any variables below zero into an unphysical region of phase space, the variables would quickly and collectively diverge into positives or negative infinities. This was avoided with a simple zero check and modification.
+
+\subsection{Implementation in C++ with Mex files}
 
 \section{Results}
 
-We observed several interesting phenomena over the course of exploring parameter and solver configurations for the SDEs. These can be loosely grouped into two classes, thodse of noise propagation and virus resurgence.
+We observed several interesting phenomena over the course of exploring parameter and solver configurations for the SDEs. These can be loosely grouped into two classes, those of noise propagation and virus resurgence.
 
-\subsection{Noise transferrance}
+\subsection{Noise propagation}
 
-An interesting question which we addressed is the extent to which noise introduced to one parameter will effect the output of another parameter. Choosing S and V as being test cases, we added noise to each independantly and both together, observing the extent to which this effect the behaviour of other variables. We found that noise added to V became manifest in slight perturbations to the response curves of H, I and M., although the curves were still qualitatively the same objects. Noise added to the variable S had no obvious effect: desite being relatively well--connected in the system of ODEs, the other variables were less effected by perturbations in S. This may be owing to the role of S as a logical variable, ranging from its steady states at zero and one; stochastic variation these may be insignificant compared to the overall logical state of the efficacy.
+An interesting question which we addressed is the extent to which noise introduced to one parameter will appear in the output of another parameter. Choosing S and V as being test cases, we added noise to each independently and both together, observing the extent to which this effect the behaviour of other variables. We found that noise added to V became manifest in slight perturbations to the response curves of H, I and M., although the curves were still qualitatively the same objects. Noise added to the variable S had no obvious effect: despite being relatively well--connected in the system of ODEs, the other variables were less effected by perturbations in S. This may be owing to the role of S as a logical variable, ranging from its steady states at zero and one; stochastic variation of this variable may be insignificant compared to the overall logical state of the efficacy.
 
 \subsection{Virus Resurgence}
 
-One dynamically significant effect of adding noise to either the virus population V or the rate of creation of V by infected cells is the occurance of virus resurgence and infection. If the noise introduced is significanly large then the virus population plotted against time will feature more than one spike, representing a reappearance of the virus population in the cell population. I speculate that this is the stochasticity pushing the depleted virus count above a threshold, sparking another wave of infection when the antibody count has decayed sufficiently. This new wave is accompanied by a corresponding rise in antibodies in response, hoping to combat the infection. It is interesting that the subsequent virus and antibody peaks are significantly lower than the first wave's: this can be explained by reference to the antibody efficacy S. This grows every time a new infection appears, describing the cell population's capacity to ``remember'' how to combat the virus, making the virus less successful and demanding less antibody concetration for each wave. These effects can be observed in Figure \ref{resurgance}.
+One dynamically significant effect of adding noise to either the virus population V or the rate of creation of V by infected cells is the occurrence of virus resurgence and infection. If the noise introduced is significantly large then the virus population plotted against time will feature more than one spike, representing a reappearance of the virus population in the cell population. We speculate that this is the stochasticity pushing the depleted virus count above a threshold, sparking another wave of infection when the antibody count has decayed sufficiently. This new wave is accompanied by a corresponding rise in antibodies in response, hoping to combat the infection. It is interesting that the subsequent virus and antibody peaks are significantly lower than those of the first wave: this can be explained by reference to the antibody efficacy S. This grows every time a new infection appears, describing the cell population's capacity to ``remember'' how to combat the virus, making the virus less successful and demanding less antibody concentration for each wave. These effects can be observed in Figure \ref{resurgance}.
 
 \begin{figure}
 \begin{center}
@@ -258,12 +247,7 @@ One dynamically significant effect of adding noise to either the virus populatio
 \end{center}
 \end{figure}
 
-
-% -Relevance of Stochastic Modeling of the System
-% -Explain the use of SDE's
-% -Refinement of Code architecture
-
-\chapter{Our code in comparison to Group G}
+\chapter{Appendix}
 
 \bibliography{GroupDReportBibTex}
 \bibliographystyle{plain}
