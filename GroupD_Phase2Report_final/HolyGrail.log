@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.2)  18 JAN 2013 10:03
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.2)  18 JAN 2013 10:25
 entering extended mode
 **C:/Users/ambuehl/AppData/Local/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/gith..tion_
 8f45a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/ambuehl/GitHub/GroupD_Phase2
@@ -479,15 +479,16 @@ Underfull \hbox (badness 5189) in paragraph at lines 323--323
 
 LaTeX Warning: Float too large for page by 37.18385pt on input line 325.
 
-
+[13] [14 <C:/Users/ambuehl/AppData/Local/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/git
+h..tion_8f45a2159c87c850_0001.0000_4fca6a02c52cbc80/gemini/ambuehl/GitHub/Group
+D_Phase2/GroupD_Phase2Report_final/Resurgance_scissored.pdf>]
 (C:\Users\ambuehl\AppData\Local\Apps\2.0\WOCVKN3N.WW6\0XJB2ALL.OVB\gith..tion_8
 f45a2159c87c850_0001.0000_4fca6a02c52cbc80\gemini\ambuehl\GitHub\GroupD_Phase2\
-GroupD_Phase2Report_final\HolyGrail.bbl [13] [14 <C:/Users/ambuehl/AppData/Loca
-l/Apps/2.0/WOCVKN3N.WW6/0XJB2ALL.OVB/gith..tion_8f45a2159c87c850_0001.0000_4fca
-6a02c52cbc80/gemini/ambuehl/GitHub/GroupD_Phase2/GroupD_Phase2Report_final/Resu
-rgance_scissored.pdf>] [15
+GroupD_Phase2Report_final\HolyGrail.bbl [15
 
-]) [16]
+] [16
+
+]) [17]
 (C:\Users\ambuehl\AppData\Local\Apps\2.0\WOCVKN3N.WW6\0XJB2ALL.OVB\gith..tion_8
 f45a2159c87c850_0001.0000_4fca6a02c52cbc80\gemini\ambuehl\GitHub\GroupD_Phase2\
 GroupD_Phase2Report_final\HolyGrail.aux)
@@ -520,9 +521,9 @@ fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
 /type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/t
 ype1/public/amsfonts/cm/cmtt12.pfb>
-Output written on HolyGrail.pdf (18 pages, 381650 bytes).
+Output written on HolyGrail.pdf (19 pages, 383335 bytes).
 PDF statistics:
- 159 PDF objects out of 1000 (max. 8388607)
+ 163 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
