@@ -120,12 +120,25 @@ c_1 &=& d_{\textrm{max}} (2 c_3 + c_2)
 \end{eqnarray}
 Also, in order to control the time of administration, a further parameter $t_{on}$ has to be introduced, and equation \eqref{eq:drugeff} changed to the form
 \begin{equation}
-f(n) = \left\{ 
+\epsilon(n) = \left\{ 
    \begin{array}{l l}
-     n/2 & \quad \text{if $n$ is even}\\
-     -(n+1)/2 & \quad \text{if $n$ is odd}
-   \end{array} \right.
+     0 & \quad \text{for} \quad 0 \leq t \leq t_{on}\\
+     \frac{\displaystyle c_{1}(t-t_{on})}{\displaystyle 1 + c_{2}(t-t_{on})+c_{3}^{2}(t-t_{on})^{2}} & \quad \text{for} \quad t > t_{on}
+   \end{array} \right. \label{eq:drugadmin}
 \end{equation}
+\begin{figure}[htb]
+\begin{centering}
+\includegraphics[width=150mm]{drugAdministration.png}
+\caption{Plot of $\epsilon(t)$ against $t$ according to equation~\eqref{eq:drugadmin}. The input parameters for this graph are: $d_{max} = 2$, $t_{on} = 3$, $t_{peak} = 0.5$, $t_{half} = 0.9$, which results in $c_1 = 1.42$, $c_2 = -3.29$, $c_3 = 2$.}
+\label{fig:DrugProfile}
+\end{centering}
+\end{figure}
+
+Key questions include:
+\begin{enumerate}
+\item How does the time delay between infection onset and drug administration effect the treatment outcome?
+\item Can polytherapy exhibit synergy? \textit{I.e.} could 2 drugs working together ever achieve more than the sum of their individual effects?
+\end{enumerate}
 
 \subsection{Effects of adding VNI antivirals -- some preliminary results}
 
@@ -140,8 +153,9 @@ Firstly, we examined the effect of changing the drug dose (by changing the value
 \end{centering}
 \end{figure}
 
-Secondly, we investigated the effects of changing the time at which the drug was administered, for a fixed drug profile (figure~\ref{fig:timesweep}), using a parameter sweep extension to group G's GUI. We observed that the time of administration, $t_{\textrm{on}}$, was of critical importance in determining the severity of the infection.
+Secondly, we investigated the effects of changing the time at which the drug was administered, for a fixed drug profile (figure~\ref{fig:timesweep}), using a parameter sweep extension to group G's GUI. We observed that the time of administration, $t_{\textrm{on}}$, was of critical importance in determining the severity of the infection. If drugs are administered too late after onset of an infection, then the drug is ineffective with respect to virus concentration, as should be expected. The only influence a late administration can have is on the speed of viral decrease.
 
+\newpage
 \begin{figure}[h!]
 \begin{minipage}{0.5\textwidth}
 \includegraphics[height = 0.3\textheight]{drug_t0_6p5_scissored} %1
@@ -160,6 +174,22 @@ Secondly, we investigated the effects of changing the time at which the drug was
 \label{fig:timesweep}
 \end{figure}
 
+We can infer from the parameter sweep shown in the previous plots, that the drug is most effective when administered around $t_{on} = 4.8$. We used this value of $t_{on}$ to check the effect of the maximum drug concentration $d_{max}$ on the virus concentration. We found that the concentration of viruses drop even for small values of $d_{max}$, but rises again if it has not reached a certain threshold, albeit not as high as without administering drugs.
+\newpage
+
+\begin{figure}[h!]
+\includegraphics[width=75mm]{drug_zero.png}
+\includegraphics[width=75mm]{drug_one.png}
+\newline
+\includegraphics[width=75mm]{drug_two.png}
+\includegraphics[width=75mm]{drug_three.png}
+\caption{Plot of virus concentration versus time. The administration, peak and half-life times are held constant, just the maximum drug concentration is varied. The parameters are $t_{on} = 4.8$, $t_{peak} = 0.15$, $t_{half} = 0.4$, and $d_{max}$ varies in reading order from top left to bottom right through the values 0, 1, 2, 3. The maximum values of the virus concentrations drop from approx. 100, 60, 45 to 6 (again in reading order).}
+\label{fig:onsetTimes}
+\end{figure}
+
+Generating representative plots of virus concentration versus time under drug administration poses the same problems as the original model. That is to say, that there is a far too large dependency on parameters that cannot (presently) be derived from experimental measurements. However, it is possible to infer certain dependencies on the parameters with the drug administration model as is.
+
+\newpage
 \section{ T\textsubscript{H} cells and Plasma Cell Dynamics} %By Jin
 In the original model, the interaction of T\textsubscript{H}1 and T\textsubscript{H}2 cells were omitted with almost no justification - this seems unusual, especially considering how critical T\textsubscript{H} cells are fundamental to the clonal expansion of B-cells and their transition into plasma cells. Interestingly, new research suggests that it's neither T\textsubscript{H}1 or T\textsubscript{H}2 cells; instead, another cell type, the follicular helper T-cell, T\textsubscript{FH}, facilitates the switch ~\cite{Swain}. Though it would be ideal to integrate T\textsubscript{FH}:B-cell interaction into the model to enhance its biological relevance, their interaction has not yet been substantially modelled and our group felt it was precocious to propose an entirely new equation to model this interaction. On the other hand, the interaction of T-cells and B-cells has been modelled elsewhere ~\cite{Carneiro1}~\cite{Carneiro2}.\\ 
 
