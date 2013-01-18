@@ -1,3 +1,62 @@
+// % -------------------------------------------------------------------------
+// %
+// %   A Program to solve a stochastic implementation of the system of ODEs
+// %   first proposed by Hancioglu et al. in the paper 'A Dynamical Model
+// %   of Human Immune Response to Influenza A Virus Infection'
+// %   Copyright (C) 2013 Will Smith et al.
+// % 
+// %   This program is free software: you can redistribute it and/or modify
+// %   it under the terms of the GNU General Public License as published by
+// %   the Free Software Foundation, either version 3 of the License, or
+// %   (at your option) any later version.
+// % 
+// %   This program is distributed in the hope that it will be useful,
+// %   but WITHOUT ANY WARRANTY; without even the implied warranty of
+// %   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// %   GNU General Public License for more details.
+// % 
+// %   You should have received a copy of the GNU General Public License
+// %   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// %
+// %   This is code is based on work by 2013 Paul Taylor et al. on
+// %   on reproducing the results of Hancioglu et al.'s Paper 'A Dynamical
+// %   Model of Human Immune Response to Influenza A Virus Infection'
+
+
+/*************************************************************************/
+/* This Program solves a system of 10 coupled ODEs using the Euler -     */
+/* Maruyama method for solving stochastic ODEs.                          */
+/* It implements a Box-Mueller Transform to generate a Gaussian Variable */
+/* used in the solution method.                                          */
+/* The function is called by:                                            */
+/*      mexSolveStochasticODE(ModelParameters, [start_of_range,...       */
+/*      end_of_range], [x_0 y_0], options, noiseData);                   */
+/*                                                                       */
+/*                                                                       */
+/* ModelParameters  -   A Matlab structure containing the fields of the  */
+/*                      model as defined and initialised in              */
+/*                      InitialiseModelParameters.m                      */
+/*                                                                       */
+/* start_of_range,  -   start and end values of the range to compute the */
+/* end_of_range         solution over                                    */
+/*                                                                       */ 
+/* x_0, y_0         -   the initial values of the functions in the model,*/
+/*                      the number of values in the vector define the    */
+/*                      number equations in the model                    */
+/*                                                                       */
+/* options          -   A Matlab struct containing the timestep denoted  */
+/*                      options.stepSize                                 */
+/*                                                                       */
+/* noiseData        -   A 10x2 double array containing noise parameters  */
+/*                      a, b from the equation G(x) = ax^b               */
+/*                                                                       */
+/*                                                                       */
+/* Data output is in the format [Times, Solution] where Times contains   */
+/* the time output ant Solution is a matrix where each column is a       */
+/* solution for each equation where the points correspond to the times   */
+/* in Times                                                              */
+/*************************************************************************/
+
 #include "mexSolveStochasticODE.h"
 
 // Solving the parallel system of ODEs with stochastic variables

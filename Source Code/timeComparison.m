@@ -1,3 +1,32 @@
+%
+%   Compare Computation time for mexSolveStochasticODE (C) and
+%   sdesolver (Matlab)
+%
+%   -----------------------------------------------------------------------
+%
+%   A Program to solve a stochastic implementation of the system of ODEs
+%   first proposed by Hancioglu et al. in the paper 'A Dynamical Model
+%   of Human Immune Response to Influenza A Virus Infection'
+%   Copyright (C) 2013 Will Smith et al.
+% 
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+% 
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+% 
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+% 
+%   This is code is based on work by 2013 Paul Taylor et al. on
+%   on reproducing the results of Hancioglu et al.'s Paper 'A Dynamical
+%   Model of Human Immune Response to Influenza A Virus Infection'
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Model Parameters, Program Parameters, Initial Conditions %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,13 +70,13 @@ handles.ModelParameters.r           = 3e-5;
 %%% ProgramParameters contains information such as start and end times %%%
 
 handles.ProgramParameters.t_start   = 0;        % Start time
-handles.ProgramParameters.t_end     = 100;       % End time
+handles.ProgramParameters.t_end     = 30;       % End time
 handles.ProgramParameters.t_step    = 0.01;     % Timestep
 
 
 %%% InitialConditions contains the initial values of the variables %%%
 
-handles.InitialConditions(1)    = 0.1;         % V(0)
+handles.InitialConditions(1)    = 0.01;         % V(0)
 handles.InitialConditions(2)    = 1;            % H(0)
 handles.InitialConditions(3)    = 0;            % I(0)
 handles.InitialConditions(4)    = 0;            % M(0)
@@ -74,7 +103,7 @@ handles.NoiseParameters(1,8)    = 0;            % P(0)
 handles.NoiseParameters(1,9)    = 0;            % A(0)
 handles.NoiseParameters(1,10)   = 0;            % S(0)
 
-handles.NoiseParameters(2,1)    = 1;          % V(0)
+handles.NoiseParameters(2,1)    = 1;            % V(0)
 handles.NoiseParameters(2,2)    = 0;            % H(0)
 handles.NoiseParameters(2,3)    = 0;            % I(0)
 handles.NoiseParameters(2,4)    = 0;            % M(0)
@@ -108,7 +137,7 @@ total/numTrials
 %%% Note: noise input is different for matlab and C code
 %%% changing noise input to have the same input for matlab function
 
-handles.NoiseParameters(1,1)    = 1;          % V(0)
+handles.NoiseParameters(1,1)    = 1;            % V(0)
 handles.NoiseParameters(2,1)    = 0;            % H(0)
 handles.NoiseParameters(3,1)    = 0;            % I(0)
 handles.NoiseParameters(4,1)    = 0;            % M(0)
@@ -119,7 +148,7 @@ handles.NoiseParameters(8,1)    = 0;            % P(0)
 handles.NoiseParameters(9,1)    = 0;            % A(0)
 handles.NoiseParameters(10,1)   = 0;            % S(0)
 
-handles.NoiseParameters(1,2)    = 1;          % V(0)
+handles.NoiseParameters(1,2)    = 1;            % V(0)
 handles.NoiseParameters(2,2)    = 0;            % H(0)
 handles.NoiseParameters(3,2)    = 0;            % I(0)
 handles.NoiseParameters(4,2)    = 0;            % M(0)
@@ -149,6 +178,6 @@ total/numTrials
 
 figure;
 subplot(1,2,1);
-plot(mxTimes, mxSolution(:,1));
+plot(mxTimes, mxSolution(:,2));
 subplot(1,2,2);
-plot(times, Solution(1,:));
+plot(times, Solution(2,:));
