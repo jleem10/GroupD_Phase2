@@ -1,0 +1,90 @@
+\begin{thebibliography}{10}
+
+\bibitem{Hancioglu}
+David~Swigon Baris~Hancioglu and Gilles Clermont.
+\newblock A dynamical model of human immune response to influenza a virus
+  infection.
+\newblock {\em Journal of Theoretical Biology}, 246:70--86, 2007.
+
+\bibitem{box1958}
+G.E.P. Box and M.E. Muller.
+\newblock A note on the generation of random normal deviates.
+\newblock {\em The Annals of Mathematical Statistics}, 29(2):610--611, 1958.
+
+\bibitem{Crotty}
+Shane Crotty.
+\newblock Follicular helper cd4 t cells (tfh).
+\newblock {\em Annual Reviews of Immunology}, 29:621--663, 2011.
+
+\bibitem{GroupG}
+N.~Pearce L. Bowler F. Wolfreys M. Aldeghi~I. Frost and P.~Taylor.
+\newblock A dynamical model of human immune response to influenza a virus
+  infection.
+\newblock 2013.
+
+\bibitem{Grimaldi15022005}
+Christine~M. Grimaldi, Ruthmarie Hicks, and Betty Diamond.
+\newblock B cell selection and susceptibility to autoimmunity.
+\newblock {\em The Journal of Immunology}, 174(4):1775--1781, 2005.
+
+\bibitem{2001}
+Desmond~J. Higham.
+\newblock An algorithmic introduction to numerical simulation of stochastic
+  differential equations.
+\newblock {\em SIAM Review}, 43(3):pp. 525--546, 2001.
+
+\bibitem{Hu}
+Jun Hu, Riqiang Fu, and Timothy~A. Cross.
+\newblock The chemical and dynamical influence of the anti-viral drug
+  amantadine on the m2 proton channel transmembrane domain.
+\newblock {\em Biophysical Journal}, 93(1):276 -- 283, 2007.
+
+\bibitem{Carneiro1}
+Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
+\newblock A model of the immune network with b-t cell co-operation i --
+  prototypical structures and dynamics.
+\newblock {\em Journal of Theoretical Biology}, 182:513--529, 1996.
+
+\bibitem{Carneiro2}
+Jose~Faro Jorge~Carneiro, Antonio~Coutinho and John Stewart.
+\newblock A model of the immune network with b-t cell co-operation ii -- the
+  simulation of ontogenesis.
+\newblock {\em Journal of Theoretical Biology}, 182:531--547, 1996.
+
+\bibitem{MitchellJanuary152011}
+Hugh Mitchell, Drew Levin, Stephanie Forrest, Catherine A.~A. Beauchemin,
+  Jennifer Tipper, Jennifer Knight, Nathaniel Donart, R.~Colby Layton, John
+  Pyles, Peng Gao, Kevin~S. Harrod, Alan~S. Perelson, and Frederick Koster.
+\newblock Higher level of replication efficiency of 2009 (h1n1) pandemic
+  influenza virus than those of seasonal and avian strains: Kinetics from
+  epithelial cell culture and computational modeling.
+\newblock {\em Journal of Virology}, 85(2):1125--1135, January 15, 2011.
+
+\bibitem{Perelson}
+A.S. Perelson et~al.
+\newblock Modelling viral and immune system dynamics.
+\newblock {\em Nature Reviews Immunology}, 2(1):28--36, 2002.
+
+\bibitem{Satoh}
+Kanako Satoh, Ryouichi Nonaka, Akio Ogata, Dai Nakae, and Shin ichi Uehara.
+\newblock Effects of oseltamivir phosphate (tamiflu) and its metabolite
+  (gs4071) on monoamine neurotransmission in the rat brain.
+\newblock {\em Biological and Pharmaceutical Bulletin}, 30(9):1816--1818, 2007.
+
+\bibitem{Smith}
+Amber~M. Smith and Alan~S. Perelson.
+\newblock Influenza a virus infection kinetics: quantitative data and models.
+\newblock {\em Wiley Interdisciplinary Reviews: Systems Biology and Medicine},
+  3(4):429--445, 2011.
+
+\bibitem{Swain}
+K.~Kai~McKinstry Susan L.~Swain and Tara~M. Strutt.
+\newblock Expanding roles for cd4+ t cells in immunity to viruses.
+\newblock {\em Nature Reviews Immunology}, 12:136--148, 2012.
+
+\bibitem{Tsoukias}
+Nikolaos~M. Tsoukias and Steven~C. George.
+\newblock A two-compartment model of pulmonary nitric oxide exchange dynamics.
+\newblock {\em Journal of Applied Physiology}, 85(2):653--666, 1998.
+
+\end{thebibliography}
