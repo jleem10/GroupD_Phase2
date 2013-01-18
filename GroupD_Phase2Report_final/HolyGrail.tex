@@ -129,7 +129,7 @@ f(n) = \left\{
 
 \subsection{Effects of adding VNI antivirals -- some preliminary results}
 
-Adding a drug variable of the form of equation~\eqref{eq:drugeff}  in the GUI of group G enabled us to probe the qualitative effects of the administration of a hypothetical VNI antiviral to an infected patient.
+Adding a drug variable of the form of equation~\eqref{eq:drugeff}  in the GUI of group G enabled us to probe the qualitative effects of the administration of a hypothetical VNI antiviral to an infected patient.\\
 
 Firstly, we examined the effect of changing the drug dose (by changing the value of parameter $d_{\textrm{max}}$) on the viral population, as a function of time. Plotting the resulting curves of $V(t)$ against $t$ revealed some interesting behaviour (figure~\ref{fig:dosesweep}): as the drug dose was increased over the range $0.1 < d_{\textrm{max}} < 1$, the onset time of the ``viral surge'' observed by Hancioglu \textit{et al.}~\cite{Hancioglu} increased,\footnote{We note that the intial decline in severity with increasing dosage is actually followed by a marginal increase in same, for reasons as yet unknown to us.} accompanied by a marginal fall in severity as measured by the maximum of $V(t)$. Then, when the dosage exceeded a critcal value of around  $d_{\textrm{max}} = 0.52$, the viral surge peaks vanished, implying that there was sufficient drug present at the correct time so as to completely inhibit the viral take-over.\\
 \begin{figure}[h!]
@@ -160,16 +160,14 @@ Secondly, we investigated the effects of changing the time at which the drug was
 \label{fig:timesweep}
 \end{figure}
 
-
-
-\section{Consideration of T\textsubscript{H} cells in Plasma Cell Dynamics} %By Jin
+\section{ T\textsubscript{H} cells and Plasma Cell Dynamics} %By Jin
 In the original model, the interaction of T\textsubscript{H}1 and T\textsubscript{H}2 cells were omitted with almost no justification - this seems unusual, especially considering how critical T\textsubscript{H} cells are fundamental to the clonal expansion of B-cells and their transition into plasma cells. Interestingly, new research suggests that it's neither T\textsubscript{H}1 or T\textsubscript{H}2 cells; instead, another cell type, the follicular helper T-cell, T\textsubscript{FH}, facilitates the switch ~\cite{Swain}. Though it would be ideal to integrate T\textsubscript{FH}:B-cell interaction into the model to enhance its biological relevance, their interaction has not yet been substantially modelled and our group felt it was precocious to propose an entirely new equation to model this interaction. On the other hand, the interaction of T-cells and B-cells has been modelled elsewhere ~\cite{Carneiro1}~\cite{Carneiro2}.\\ 
 
-The change in T-cell population to antigen $k$ (\emph{i.e.} $\frac{dT_k}{dt}$) is dependent on the T-cell death rate ($k_{DT}$), proliferation rate ($k_{PT}$), thymic output rate ($k_{ST}$) and the function $\alpha{T}$ which depends on $\pi_{k}$ (stimulatory signal for T-cell activation), $n_{k}$ (inhibitory signal for T-cell activation), $T_{k}$, and two constants $a_{T1}$ and $a_{T2}$, hence leading to the equation:
+The change in T-cell population to antigen $k$ (\emph{i.e.} $\frac{dT_k}{dt}$) is dependent on the T-cell death rate ($k_{DT}$), proliferation rate ($k_{PT}$), thymic output rate ($k_{ST}$) and the function $\alpha{T}$ which depends on $\pi_{k}$ (stimulatory signal for T-cell activation), $\eta_{k}$ (inhibitory signal for T-cell activation), $T_{k}$, and two constants $a_{T1}$ and $a_{T2}$, hence leading to the equation:
 
 \begin{eqnarray}
 \frac{dT_k}{dt} &=& -k_{DT} \cdot T_k + k_{PT} \cdot \alpha_{T}(\pi_{k}, n_{k}, T_{k}) + k_{ST}; \label{dTK} \\
-\alpha_{T}(\pi_{k}, n_{k}, T_{k}) &=& exp\left[-\left(\frac{log(n_{k}) - a_{T1}}{a_{T2}}\right)^{2}\right]
+\alpha_{T}(\pi_{k}, \eta_{k}, T_{k}) &=& exp\left[-\left(\frac{log(\eta_{k}) - a_{T1}}{a_{T2}}\right)^{2}\right] \cdot \pi_{k} \cdot T_{k}
 \end{eqnarray}
 
 The population of active B cells, $B_{i}$, is dependent on the T-cell population; like equation ~\ref{dTK}, $B_{i}$ depends on B-cell death rate ($k_{DB}$), proliferation rate ($k_{PB}$), and the function $\alpha{B}$ (which depends on $\sigma_{i}$ [B cell induction signal], $\tau_{i}$ [number of active T cells], $\beta_{i}$ [the number of induced B cells] and $B_{i}$), thus leading to:
@@ -208,10 +206,12 @@ In summary, to account for the role of helper T cells in plasma cell synthesis w
 \frac{dP}{dt} &=& b_{PB}B_{i}P + \alpha_{P}(1 - P)
 \end{eqnarray*}
 
-\section{Introduction of Stochasticity} %Done by Jin and Owen
-To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code, but instead give the user a more realistic account of how cell populations and viral titre can vary over time. We decided that the two areas in which introduction of stochasticity were most biologiclaly justified were in virus production and development of antibody affinity. It is understood that there is a wide range of variability in virus production from infected cells \cite{MitchellJanuary152011}, so we felt justified in adding a noise term which affects the total virus population V.
+Due to the addition of these new compartments, the inherited C++ mex function and its header, \texttt{mexodestiff.cpp} and \texttt{mexodestiff.hpp}, were re-adjusted. Much of the code was retained, with the exception that new variables were defined as necessary, and the Jacobian matrix in the header file was re-defined to accommodate for the two new compartments.
 
-Similarly, the model already incorporates the affinity maturation of antibodies, but fails to model the fundamentally stochastic nature of the recombination process. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres \cite{Grimaldi15022005}. Consequently, we felt that another target for noise terms was the rate of change of variable S, in order to incorporate the iterative, random process of antibody selection.
+\section{Introduction of Stochasticity} %Done by Jin and Owen
+To improve the current computational model, we felt that giving the user the freedom to incorporate stochasticity into their analyses was essential. The idea was not to replace the code, but instead give the user a more realistic account of how cell populations and viral titre can vary over time. We decided that the two areas in which introduction of stochasticity were most biologiclaly justified were in virus production and development of antibody affinity. It is understood that there is a wide range of variability in virus production from infected cells \cite{MitchellJanuary152011}, so we felt justified in adding a noise term which affects the total virus population V.\\
+
+Similarly, the model already incorporates the affinity maturation of antibodies, but fails to model the fundamentally stochastic nature of the recombination process. In theory, every antibody is constructed from a diverse genetic framework and every antibody has a different affinity for the virus - only the antibody that binds strongest is selected for further expansion in the geminal centres \cite{Grimaldi15022005}. Consequently, we felt that another target for noise terms was the rate of change of variable S, in order to incorporate the iterative, random process of antibody selection.\\
 
 There were two possible ways of approaching this problem; it is possible to introduce stochastic noise into either the cell populations or the dynamical rate paramters. Both were explored, and are discussed below.
 
@@ -241,8 +241,7 @@ The next approach, which is possibly more theoretically justifiable, is to allow
 These two approaches were implemented in two different solver functions: \texttt{sdesolver()} and \texttt{sderatesolver()}, respectively. These resembled the native Matlab\textsuperscript{\textregistered} solvers, but with an extra input, describing the nature of the diffusion coefficient $G(X(t))$. \texttt{sdesolver()} is handed a two by ten dimensional matrix containing the vectors $a$ and $b$, used such that $G(X)=a.$*$X.^b$, elementwise. This gives a wide sampling of potential diffusion functions, allowing for easy sampling of interesting parameter spaces. The second function, \texttt{sderatesolver()}, demands two inputs, which specify the strength of the noise added to the creation rates of V and S, these being judged to be the processes most likely to realistically exhibit highly stochastic behaviour. A difficulty of implementation involved forcing all variables to remain non--negative: if either the numerical methods or stochastic noise push any variables below zero into an unphysical region of phase space, the variables would quickly and collectively diverge into positives or negative infinities. This was avoided with a simple zero check and modification.
 
 \subsection{Implementation in C with Mex files} %Written by Malte
-
-The implementation of stochasticity in C was done reusing parts of Group H's C++ mex code and converting this to C syntax and adding a stochastic ODE solver after the Euler-Maruyama method described earlier. A 10 by 2 matrix with noise parameters a and b, representing the inputs in $G(x) = ax^b$ as described in the section above, was read in and used to calculate a noise factor, $G(x)$ from equation \eqref{eqn:eulerMaruyama}. In order to generate a Gaussian random variable, denoted $\eta$ in the aforementioned equation, a Box-Mueller transform \cite{box1958} was used:
+The implementation of stochasticity in C was done reusing parts of Group G's C++ mex code and converting this to C syntax and adding a stochastic ODE solver after the Euler-Maruyama method described earlier. A 10 by 2 matrix with noise parameters a and b, representing the inputs in $G(x) = ax^b$ as described in the section above, was read in and used to calculate a noise factor, $G(x)$ from equation \eqref{eqn:eulerMaruyama}. In order to generate a Gaussian random variable, denoted $\eta$ in the aforementioned equation, a Box-Mueller transform \cite{box1958} was used:
 
 \begin{align}
 \label{eqn:boxMueller}
@@ -252,7 +251,7 @@ X_1 = \sqrt{ -2\, \log(U_1)}\, \cos(2 \pi U_2)
 In this equation $U_1$ and $U_2$ denote uniformly distributed random numbers in the interval $[0;1]$. The method used to create these uniformly distributed random numbers was: 
 
 $\textit{rand()}\,\%\, 1001 / 1000$ 
-The random number generator \textit{rand()} was seeded by the CPU time at every loop iteration, thus the same seed was used for the $2N$ calls to \textit{rand()} at every iteration, where $N$ is the number of equations in the system of coupled ODEs. This seeding method can be a cause for systematic error, due ot the pseudo-randomness of the \textit{rand()} function in C. A further cause of systematic error is if RAND\_MAX $\gg 1000$ is not true. In this case there is a bias towards lower values. Furthermore, the uniform random variable only being sampled to 3 decimal places can cause errors in the distribution of the gaussian random variable.
+The random number generator \textit{rand()} was seeded by the CPU time at every loop iteration, thus the same seed was used for the $2N$ calls to \textit{rand()} at every iteration, where $N$ is the number of equations in the system of coupled ODEs. This seeding method can be a cause for systematic error, due ot the pseudo-randomness of the \textit{rand()} function in C. A further cause of systematic error is if RAND\_MAX $\gg 1000$ is not true. In this case there is a bias towards lower values. Furthermore, the uniform random variable only being sampled to 3 decimal places can cause errors in the distribution of the gaussian random variable.\\
 
 The mex function was tested against the same code in matlab for different numbers of iterations of the main loop, dependent on start and end times and the timestep. The time comparison obtained from this can be seen in Table \ref{tbl:matlabCComparison}.
 
@@ -271,8 +270,9 @@ Iteration & Matlab Code Time (s) & Mex Code Time (s) & Speed up factor \\ \hline
 \label{tbl:matlabCComparison}
 \end{table}
 
-The mex solver in C exhibits some numerical instability, which occurs occasionally when the initial value for the Virus population, $V$, is at around 0.01 and the timestep is of a similar order of magnitude. This is an instability which is inherent in the method and its removal is out of the scope of this project.
+The mex solver in C exhibits some numerical instability, which occurs occasionally when the initial value for the Virus population, $V$, is at around 0.01 and the timestep is of a similar order of magnitude. This is an instability which is inherent in the method and its removal is out of the scope of this project. \\
 
+Upon confirmation of the efficiency of the mex solver, this was then re-designed with the two additional compartments to generate a 12 by 2 matrix with appropriate noise parameters.
 
 \section{Results}
 
